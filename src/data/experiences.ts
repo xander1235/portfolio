@@ -17,31 +17,37 @@ export const experiences: Experience[] = [
     achievements: [
       "Led development of microservices architecture",
       "Reduced deployment time by 60%",
-      "Mentored 5 junior developers"
+      "Mentored 5 junior developers",
+      "Implemented real-time data processing pipeline using Apache Flink",
+      "Designed and implemented high-performance APIs serving 1M+ requests/day"
     ]
   },
   {
     company: "Threedots",
     role: "Software Engineer",
     period: "Mar 2022 - Aug 2023",
-    description: "Backend development of scalable web applications.",
-    technologies: ["Golang", "Java", "PostgreSQL", "Redis"],
+    description: "Developed scalable backend services and microservices architecture.",
+    technologies: ["Golang", "Java", "PostgreSQL", "Redis", "Kubernetes", "gRPC", "RabbitMQ"],
     achievements: [
       "Improved system performance by 40%",
       "Implemented real-time analytics dashboard",
-      "Led team of 3 developers"
+      "Led team of 3 developers",
+      "Designed and implemented distributed caching system",
+      "Reduced infrastructure costs by 30%"
     ]
   },
   {
     company: "Ola Electric",
     role: "Software Engineer",
     period: "July 2020 - Feb 2022",
-    description: "Backend development of scalable web applications.",
-    technologies: ["Java", "PostgreSQL", "Redis"],
+    description: "Built scalable backend services for electric vehicle management system.",
+    technologies: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Kafka", "AWS"],
     achievements: [
-      "Improved system performance by 40%",
-      "Implemented real-time analytics dashboard",
-      "Led team of 3 developers"
+      "Developed vehicle telemetry processing system",
+      "Implemented real-time monitoring dashboard",
+      "Optimized database queries reducing latency by 50%",
+      "Built RESTful APIs for mobile applications",
+      "Contributed to microservices architecture design"
     ]
   }
 ];

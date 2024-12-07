@@ -9,19 +9,19 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "E-commerce Platform",
-    description: "Built a scalable e-commerce platform using microservices architecture, handling millions of transactions.",
-    tech: ["Node.js", "React", "MongoDB", "Docker"],
-    link: "#",
-    image: "/projects/ecommerce.jpg",
-    github: "https://github.com/username/ecommerce"
-  },
-  {
-    title: "Analytics Dashboard",
-    description: "Real-time analytics dashboard processing millions of events daily with interactive visualizations.",
-    tech: ["Python", "Vue.js", "PostgreSQL", "Redis"],
+    title: "Real-time Analytics Platform",
+    description: "Built a scalable real-time analytics platform processing millions of events daily with interactive visualizations.",
+    tech: ["Golang", "Apache Flink", "Redis", "PostgreSQL", "React", "Docker"],
     link: "#",
     image: "/projects/analytics.jpg",
-    github: "https://github.com/username/analytics"
+    github: "https://github.com/yourusername/analytics"
+  },
+  {
+    title: "Vehicle Management System",
+    description: "Developed a comprehensive vehicle management system handling telemetry data from thousands of electric vehicles.",
+    tech: ["Java", "Spring Boot", "Kafka", "Redis", "PostgreSQL", "AWS"],
+    link: "#",
+    image: "/projects/ecommerce.jpg",
+    github: "https://github.com/yourusername/vehicle-management"
   }
 ];
