@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veerender Rathod - Senior Software Engineer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --secondary: #6610f2;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 120px 0 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        /* Experience Cards */
+        .experience-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Skills Section */
+        .skill-card {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Project Cards */
+        .project-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><strong>VR</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1>Veerender Rathod</h1>
+                    <h2 class="h4 mb-4">Senior Software Engineer</h2>
+                    <p class="lead mb-4">More than 3 years of experience building scalable systems and microservices with Java, SpringBoot, and modern technologies.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#contact" class="btn btn-light btn-lg">Contact Me</a>
+                        <a href="#projects" class="btn btn-outline-light btn-lg">View Projects</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="experience-card">
+                        <h3>Senior Software Engineer @ Pixis</h3>
+                        <p class="text-muted">Sep 2023 - Present</p>
+                        <ul>
+                            <li>Developed Golang event processing service handling 100K rpm with data loss prevention</li>
+                            <li>Created Events Retry system with exponential backoff and Dead Letter queues</li>
+                            <li>Designed and developed comprehensive Flink job registry service</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="experience-card">
+                        <h3>Software Engineer @ Threedots</h3>
+                        <p class="text-muted">Mar 2022 - Aug 2023</p>
+                        <ul>
+                            <li>Developed online gaming service improving DAU/MAU ratio from 5% to 50%</li>
+                            <li>Achieved 2x reduction in resource usage and 3x decrease in latency</li>
+                            <li>Maintained virtual currency wallet system</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-card">
+                        <h3>Software Engineer @ Ola Electric</h3>
+                        <p class="text-muted">July 2020 - Feb 2022</p>
+                        <ul>
+                            <li>Built User Auth and SSO solution handling 50K rpm</li>
+                            <li>Developed multi-tenant user service platform</li>
+                            <li>Implemented Flink jobs for data transformation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="skill-card">
+                        <i class="fab fa-java skill-icon"></i>
+                        <h4>Core Technologies</h4>
+                        <p>Java, SpringBoot, GoLang</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="skill-card">
+                        <i class="fas fa-database skill-icon"></i>
+                        <h4>Databases</h4>
+                        <p>MySQL, Scylla, DynamoDB, Redis</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="skill-card">
+                        <i class="fas fa-cloud skill-icon"></i>
+                        <h4>Cloud & DevOps</h4>
+                        <p>AWS, Docker, Kubernetes</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="skill-card">
+                        <i class="fas fa-code-branch skill-icon"></i>
+                        <h4>Tools & Others</h4>
+                        <p>Kafka, Apache Flink, Git</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card project-card">
+                        <div class="card-body">
+                            <h4>Event Processing Service</h4>
+                            <p>Golang service handling 100K rpm with data loss prevention and async processing</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-primary">Golang</span>
+                                <span class="badge bg-secondary">Kafka</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card project-card">
+                        <div class="card-body">
+                            <h4>Gaming Platform</h4>
+                            <p>Online gaming service with live leaderboard, achieving 50% DAU/MAU ratio</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-primary">Java</span>
+                                <span class="badge bg-secondary">Redis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card project-card">
+                        <div class="card-body">
+                            <h4>Auth Platform</h4>
+                            <p>Multi-organization authentication system handling 50K rpm</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-primary">SpringBoot</span>
+                                <span class="badge bg-secondary">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container text-center">
+            <h2 class="mb-4">Get In Touch</h2>
+            <p class="mb-4">Feel free to reach out for collaborations or just a friendly hello</p>
+            <div class="mb-4">
+                <p>Email: rathodveerender25@gmail.com</p>
+                <p>Phone: +91-9129382373</p>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Xander" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/rathod-veerender" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://leetcode.com/rathod1235" target="_blank"><i class="fas fa-code"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-dark text-light text-center">
+        <div class="container">
+            <p>© 2024 Veerender Rathod. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active nav link handling
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
