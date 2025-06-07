@@ -75,6 +75,128 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the orbit center element
     const orbitCenter = document.querySelector('.tech-orbit-center');
     
+    // Add click event to the orbit center to trigger vanish/revive animation
+    if (orbitCenter) {
+        orbitCenter.style.cursor = 'pointer';
+        
+        // Track animation state
+        let isAnimating = false;
+        let isVanished = false;
+        
+        orbitCenter.addEventListener('click', () => {
+            // Prevent multiple clicks during animation
+            if (isAnimating) return;
+            
+            isAnimating = true;
+            
+            // Pause the orbit animation
+            orbit.classList.add('paused');
+            if (centerInfoWrapper) {
+                centerInfoWrapper.style.animationPlayState = 'paused';
+            }
+            
+            // Add a pulse effect to the center
+            orbitCenter.style.transition = 'all 0.5s ease';
+            orbitCenter.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            setTimeout(() => {
+                orbitCenter.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 300);
+            
+            if (!isVanished) {
+                // VANISH ANIMATION
+                // Animate each orbiter to move toward center and fade out
+                orbiters.forEach((orbiter, index) => {
+                    const icon = orbiter.querySelector('.tech-icon');
+                    const tooltip = orbiter.querySelector('.tech-tooltip');
+                    
+                    // Pause icon animations
+                    if (icon) icon.style.animationPlayState = 'paused';
+                    if (tooltip) tooltip.style.animationPlayState = 'paused';
+                    
+                    // Set up transition
+                    orbiter.style.transition = 'all 0.8s ease';
+                    
+                    // Add delay based on position
+                    setTimeout(() => {
+                        // Move to center and fade out
+                        orbiter.style.left = '50%';
+                        orbiter.style.top = '50%';
+                        orbiter.style.opacity = '0';
+                        orbiter.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                    }, index * 150); // Stagger the animations
+                });
+                
+                // After all animations complete, set state to vanished
+                setTimeout(() => {
+                    isVanished = true;
+                    isAnimating = false;
+                    
+                    // Make center icon pulse to indicate it can be clicked again
+                    const pulseAnimation = document.createElement('style');
+                    pulseAnimation.textContent = `
+                        @keyframes centerPulse {
+                            0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px rgba(110, 69, 226, 0.6); }
+                            50% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 30px rgba(110, 69, 226, 0.8); }
+                            100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px rgba(110, 69, 226, 0.6); }
+                        }
+                    `;
+                    document.head.appendChild(pulseAnimation);
+                    orbitCenter.style.animation = 'centerPulse 2s infinite';
+                }, orbiters.length * 150 + 800); // Wait for all orbiters to finish + transition time
+                
+            } else {
+                // REVIVE ANIMATION
+                // Remove pulse animation
+                orbitCenter.style.animation = '';
+                
+                // Calculate positions for each orbiter
+                orbiters.forEach((orbiter, index) => {
+                    // Calculate angle for even distribution (in radians)
+                    const angle = (index * (2 * Math.PI / totalOrbiters));
+                    
+                    // Calculate position on the circle
+                    const x = centerX + radius * Math.sin(angle);
+                    const y = centerY - radius * Math.cos(angle);
+                    
+                    const icon = orbiter.querySelector('.tech-icon');
+                    const tooltip = orbiter.querySelector('.tech-tooltip');
+                    
+                    // Set up transition
+                    orbiter.style.transition = 'all 0.8s ease';
+                    
+                    // Add delay based on position
+                    setTimeout(() => {
+                        // Move back to original position and fade in
+                        orbiter.style.left = x + 'px';
+                        orbiter.style.top = y + 'px';
+                        orbiter.style.opacity = '1';
+                        orbiter.style.transform = 'translate(-50%, -50%)';
+                    }, index * 150); // Stagger the animations
+                });
+                
+                // After all animations complete, resume orbit
+                setTimeout(() => {
+                    // Resume the orbit animation
+                    orbit.classList.remove('paused');
+                    if (centerInfoWrapper) {
+                        centerInfoWrapper.style.animationPlayState = 'running';
+                    }
+                    
+                    // Resume icon animations
+                    orbiters.forEach((orbiter) => {
+                        const icon = orbiter.querySelector('.tech-icon');
+                        const tooltip = orbiter.querySelector('.tech-tooltip');
+                        if (icon) icon.style.animationPlayState = 'running';
+                        if (tooltip) tooltip.style.animationPlayState = 'running';
+                    });
+                    
+                    isVanished = false;
+                    isAnimating = false;
+                }, orbiters.length * 150 + 800); // Wait for all orbiters to finish + transition time
+            }
+        });
+    }
+    
     // Get all tech orbiters
     const orbiters = document.querySelectorAll('.tech-orbiter');
     const totalOrbiters = orbiters.length;
