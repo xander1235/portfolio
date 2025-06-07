@@ -369,22 +369,15 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 centerIcon.className = 'fas fa-sync-alt';
                                             }
                                             
-                                            // Grow and rotate the revive icon
-                                            orbitCenter.style.animation = 'reviveGrow 0.8s ease-out forwards';
-                                            orbitCenter.style.boxShadow = 'none';
-                                            orbitCenter.style.background = 'none';
-                                            
-                                            // After animation completes, start pulsing
+                                            // After center icon animation, show the clean center wrapper with growing icon
                                             setTimeout(() => {
-                                                orbitCenter.style.animation = 'centerPulse 2s infinite';
-                                                
-                                                // Set animation state
+                                                // Set animation state for revive completion
                                                 isVanished = true;
                                                 isAnimating = false;
                                             }, 800);
-                                        };
-                                    }, 800); // Wait for center icon rotation
-                                }, 500);
+                                        }, 800); // Wait for center icon rotation
+                                    }, 500);
+                                }
                             }
                         }, 800); // Time to reach center
                     }, index * 250); // Stagger the animations
@@ -392,19 +385,70 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             } else {
                 // TIME TRAVEL REVIVE ANIMATION
-                // First, ensure we clean up any previous styles that might cause shadow/noise
-                orbitCenter.style.boxShadow = 'none';
-                orbitCenter.style.background = 'transparent';
-                orbitCenter.style.border = 'none';
                 
-                // Apply fast rotation to center icon using the reviveRotate animation
-                orbitCenter.style.animation = 'reviveRotate 0.8s ease-in-out';
+                // First, remove any existing clean center wrappers to avoid duplicates
+                const existingWrappers = orbit.querySelectorAll('.clean-center-wrapper');
+                existingWrappers.forEach(wrapper => {
+                    if (wrapper.parentNode === orbit) {
+                        orbit.removeChild(wrapper);
+                    }
+                });
                 
-                // Change icon during rotation
+                // Reset the original center element's styles
+                orbitCenter.style.opacity = '0';
+                
+                // Create a fresh center icon wrapper with clean styling
+                const cleanCenterWrapper = document.createElement('div');
+                cleanCenterWrapper.className = 'clean-center-wrapper';
+                cleanCenterWrapper.style.position = 'absolute';
+                cleanCenterWrapper.style.width = '80px';
+                cleanCenterWrapper.style.height = '80px';
+                cleanCenterWrapper.style.left = '50%';
+                cleanCenterWrapper.style.top = '50%';
+                cleanCenterWrapper.style.transform = 'translate(-50%, -50%)';
+                cleanCenterWrapper.style.borderRadius = '50%';
+                cleanCenterWrapper.style.backgroundColor = '#6e45e2'; // Use exact color instead of var
+                cleanCenterWrapper.style.zIndex = '20';
+                cleanCenterWrapper.style.display = 'flex';
+                cleanCenterWrapper.style.alignItems = 'center';
+                cleanCenterWrapper.style.justifyContent = 'center';
+                cleanCenterWrapper.style.cursor = 'pointer';
+                cleanCenterWrapper.style.boxShadow = '0 0 20px rgba(110, 69, 226, 0.6)';
+                
+                // Create a fresh icon
+                const newCenterIcon = document.createElement('i');
+                newCenterIcon.className = 'fas fa-code';
+                newCenterIcon.style.fontSize = '32px';
+                newCenterIcon.style.color = 'white';
+                cleanCenterWrapper.appendChild(newCenterIcon);
+                
+                // Add the clean wrapper to the orbit
+                orbit.appendChild(cleanCenterWrapper);
+                
+                // Add rotation animation to the clean wrapper
+                cleanCenterWrapper.style.animation = 'reviveRotate 0.8s ease-in-out';
+                
+                // Add click event to the clean wrapper to handle future vanish/revive
+                cleanCenterWrapper.addEventListener('click', () => {
+                    if (!isAnimating) {
+                        // Remove this clean wrapper
+                        if (cleanCenterWrapper.parentNode === orbit) {
+                            orbit.removeChild(cleanCenterWrapper);
+                        }
+                        
+                        // Restore the original center element
+                        orbitCenter.style.opacity = '1';
+                        
+                        // Trigger the vanish animation
+                        orbitCenter.click();
+                    }
+                });
+                
+                // Update the clean wrapper icon during animation
                 setTimeout(() => {
-                    const centerIcon = orbitCenter.querySelector('i');
-                    if (centerIcon) {
-                        centerIcon.className = 'fas fa-code';
+                    const wrapperIcon = cleanCenterWrapper.querySelector('i');
+                    if (wrapperIcon) {
+                        wrapperIcon.className = 'fas fa-code';
                     }
                 }, 400); // Change halfway through rotation
                 
