@@ -6,6 +6,12 @@
     <title>Veerender Rathod | Senior Software & Data Engineer</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -32,81 +38,121 @@
     </header>
     <div class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="profile-wrapper">
-                    <div class="profile-container">
-                        <div class="profile-pic">
-                            <img src="images/my_pic.jpg" alt="Veerender Rathod" id="profileImage">
+            <div class="hero-grid">
+                <!-- Left Side: Profile Info -->
+                <div class="hero-info">
+                    <div class="profile-wrapper">
+                        <div class="profile-container">
+                            <div class="profile-pic">
+                                <img src="images/my_pic.jpg" alt="Veerender Rathod" id="profileImage">
+                            </div>
+                            <div class="social-circle">
+                                <a href="https://github.com/xander1235" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-icon" title="Medium"><i class="fab fa-medium"></i></a>
+                                <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            </div>
                         </div>
-                        <div class="social-circle">
-                            <a href="#" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="social-icon" title="Medium"><i class="fab fa-medium"></i></a>
-                            <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        </div>
+                    </div>
+                    
+                    <h1 class="hero-title">Veerender Rathod</h1>
+                    <p class="tagline">Senior Software Engineer &amp; Data Engineer</p>
+                    <p class="hero-description">
+                        I'm a passionate software engineer specializing in data engineering, full-stack development, 
+                        and cloud infrastructure. With expertise across multiple technologies, I build efficient 
+                        and scalable solutions to solve complex problems.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                        <a href="#projects" class="btn btn-outline">View My Work</a>
                     </div>
                 </div>
                 
-                <h1 class="hero-title" data-component-name="<h1 />">Veerender Rathod</h1>
-                <p class="tagline" data-component-name="<p />">Senior Software Engineer &amp; Data Engineer</p>
-                
-                <!-- Tech Circle Container -->
-                <div class="tech-circle-container">
-                    <div class="tech-circle">
-                        <!-- Main Node -->
-                        <div class="tech-node" id="mainTechNode">
+                <!-- Right Side: Tech Orbit -->
+                <div class="hero-tech">
+                    <div class="tech-orbit">
+                        <!-- Center Icon -->
+                        <div class="tech-orbit-center">
                             <i class="fas fa-code"></i>
                         </div>
                         
-                        <!-- Tech Items (initially hidden) -->
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        <!-- Python -->
+                        <div class="tech-orbiter" data-tech="python">
+                            <a href="#python-projects" class="tech-icon">
                                 <i class="fab fa-python"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>Python</h4>
+                                <p>Advanced data processing, API development, and automation with Python</p>
                             </div>
-                            <span class="tech-name">Python</span>
                         </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        
+                        <!-- JavaScript -->
+                        <div class="tech-orbiter" data-tech="javascript">
+                            <a href="#javascript-projects" class="tech-icon">
                                 <i class="fab fa-js"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>JavaScript</h4>
+                                <p>Frontend development with modern JavaScript frameworks and libraries</p>
                             </div>
-                            <span class="tech-name">JavaScript</span>
                         </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        
+                        <!-- Database -->
+                        <div class="tech-orbiter" data-tech="database">
+                            <a href="#database-projects" class="tech-icon">
                                 <i class="fas fa-database"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>Database</h4>
+                                <p>SQL and NoSQL database design, optimization, and management</p>
                             </div>
-                            <span class="tech-name">SQL</span>
                         </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        
+                        <!-- AWS -->
+                        <div class="tech-orbiter" data-tech="aws">
+                            <a href="#aws-projects" class="tech-icon">
                                 <i class="fab fa-aws"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>AWS</h4>
+                                <p>Cloud architecture and deployment using Amazon Web Services</p>
                             </div>
-                            <span class="tech-name">AWS</span>
                         </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        
+                        <!-- Docker -->
+                        <div class="tech-orbiter" data-tech="docker">
+                            <a href="#docker-projects" class="tech-icon">
                                 <i class="fab fa-docker"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>Docker</h4>
+                                <p>Container-based application development and deployment</p>
                             </div>
-                            <span class="tech-name">Docker</span>
                         </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        
+                        <!-- Git -->
+                        <div class="tech-orbiter" data-tech="git">
+                            <a href="#git-projects" class="tech-icon">
                                 <i class="fab fa-git-alt"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>Git</h4>
+                                <p>Version control and collaborative development workflows</p>
                             </div>
-                            <span class="tech-name">Git</span>
                         </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
+                        
+                        <!-- Cloud -->
+                        <div class="tech-orbiter" data-tech="cloud">
+                            <a href="#cloud-projects" class="tech-icon">
                                 <i class="fas fa-cloud"></i>
+                            </a>
+                            <div class="tech-tooltip">
+                                <h4>Cloud Computing</h4>
+                                <p>Multi-cloud expertise and serverless architecture design</p>
                             </div>
-                            <span class="tech-name">Cloud</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
-                                <i class="fas fa-code-branch"></i>
-                            </div>
-                            <span class="tech-name">CI/CD</span>
                         </div>
                     </div>
                 </div>
@@ -200,5 +246,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="tech-orbit.js"></script>
+    <script src="tech-orbit-fix.js"></script>
 </body>
 </html>

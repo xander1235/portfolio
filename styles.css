@@ -193,16 +193,367 @@ body {
 
 /* Hero Section */
 .hero {
-    background: #1a1a2e; /* Deep navy base color */
-    color: #e6e6e6; /* Soft white for text */
-    text-align: center;
-    padding: 80px 40px 40px;
+    background-color: var(--dark-bg-color);
+    color: var(--text-color);
+    padding: 120px 0 80px;
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
+    z-index: 1;
+}
+
+/* Hero Split Layout */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Left Side - Hero Info */
+.hero-info {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #ffffff, #a67fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tagline {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+    font-size: 1.5rem;
+    color: #89d4cf;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.7;
+}
+
+.hero-cta {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Tech Orbit Styles */
+.hero-tech {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-orbit {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add orbit ring with dashed border */
+.tech-orbit::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    border: 2px dashed rgba(110, 69, 226, 0.2);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Define the keyframe animation for rotation */
+@keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Define the counter-rotation to keep icons upright */
+@keyframes counterRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+/* Apply the orbit animation to the tech-orbit container */
+.tech-orbit {
+    animation: orbit 20s linear infinite;
+}
+
+.tech-orbit.paused {
+    animation-play-state: paused;
+}
+
+.tech-orbit-center {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    box-shadow: 0 0 20px rgba(110, 69, 226, 0.6);
+}
+
+.tech-orbit-center i {
+    font-size: 32px;
+    color: white;
+}
+
+.tech-orbiter {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    transition: all 0.3s ease;
+}
+
+/* Position orbiters evenly in a perfect circle using precise calculations */
+.tech-orbiter[data-tech="python"] { transform: translate(-50%, -50%) rotate(0deg) translateY(-200px) rotate(0deg); }
+.tech-orbiter[data-tech="javascript"] { transform: translate(-50%, -50%) rotate(51.43deg) translateY(-200px) rotate(-51.43deg); }
+.tech-orbiter[data-tech="database"] { transform: translate(-50%, -50%) rotate(102.86deg) translateY(-200px) rotate(-102.86deg); }
+.tech-orbiter[data-tech="aws"] { transform: translate(-50%, -50%) rotate(154.29deg) translateY(-200px) rotate(-154.29deg); }
+.tech-orbiter[data-tech="docker"] { transform: translate(-50%, -50%) rotate(205.71deg) translateY(-200px) rotate(-205.71deg); }
+.tech-orbiter[data-tech="git"] { transform: translate(-50%, -50%) rotate(257.14deg) translateY(-200px) rotate(-257.14deg); }
+.tech-orbiter[data-tech="cloud"] { transform: translate(-50%, -50%) rotate(308.57deg) translateY(-200px) rotate(-308.57deg); }
+
+/* The tech-icon styling */
+.tech-icon {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    /* Apply counter-rotation to keep icon upright as orbit rotates */
+    animation: counterRotate 20s linear infinite;
+}
+
+.tech-orbit.paused .tech-icon,
+.tech-orbit.paused .tech-tooltip {
+    animation-play-state: paused;
+}
+
+.tech-icon i {
+    font-size: 28px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+/* Tech icon hover effects */
+.tech-icon:hover {
+    background: var(--primary-color);
+    transform: scale(1.15);
+    box-shadow: 0 0 25px rgba(110, 69, 226, 0.6);
+}
+
+/* Tooltip styles */
+.tech-tooltip {
+    position: absolute;
+    background: rgba(20, 20, 40, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+    left: 80px; /* Position to the right of the icon */
+    top: 50%; 
+    transform: translateY(-50%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(110, 69, 226, 0.3);
+    pointer-events: none;
+    /* Apply counter-rotation animation to keep tooltips readable */
+    animation: counterRotate 20s linear infinite;
+}
+
+.tech-orbit.paused .tech-tooltip {
+    animation-play-state: paused;
+}
+
+.tech-tooltip h4 {
+    margin: 0 0 8px 0;
+    color: var(--primary-color);
+}
+
+.tech-tooltip p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+.tech-orbiter:hover .tech-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .hero-grid {
+        gap: 20px;
+    }
+    
+    .tech-orbit {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .tech-orbiter[data-tech="python"] { transform: translate(-50%, -50%) rotate(0deg) translateY(-175px) rotate(0deg); }
+    .tech-orbiter[data-tech="javascript"] { transform: translate(-50%, -50%) rotate(51.43deg) translateY(-175px) rotate(-51.43deg); }
+    .tech-orbiter[data-tech="database"] { transform: translate(-50%, -50%) rotate(102.86deg) translateY(-175px) rotate(-102.86deg); }
+    .tech-orbiter[data-tech="aws"] { transform: translate(-50%, -50%) rotate(154.29deg) translateY(-175px) rotate(-154.29deg); }
+    .tech-orbiter[data-tech="docker"] { transform: translate(-50%, -50%) rotate(205.71deg) translateY(-175px) rotate(-205.71deg); }
+    .tech-orbiter[data-tech="git"] { transform: translate(-50%, -50%) rotate(257.14deg) translateY(-175px) rotate(-257.14deg); }
+    .tech-orbiter[data-tech="cloud"] { transform: translate(-50%, -50%) rotate(308.57deg) translateY(-175px) rotate(-308.57deg); }
+}
+
+@media (max-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    
+    .hero-info {
+        text-align: center;
+    }
+    
+    .hero-cta {
+        justify-content: center;
+    }
+    
+    .tech-orbit {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .tech-orbit-center {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tech-orbit-center i {
+        font-size: 24px;
+    }
+    
+    .tech-orbiter {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tech-orbiter[data-tech="python"] { transform: translate(-50%, -50%) rotate(0deg) translateY(-150px) rotate(0deg); }
+    .tech-orbiter[data-tech="javascript"] { transform: translate(-50%, -50%) rotate(51.43deg) translateY(-150px) rotate(-51.43deg); }
+    .tech-orbiter[data-tech="database"] { transform: translate(-50%, -50%) rotate(102.86deg) translateY(-150px) rotate(-102.86deg); }
+    .tech-orbiter[data-tech="aws"] { transform: translate(-50%, -50%) rotate(154.29deg) translateY(-150px) rotate(-154.29deg); }
+    .tech-orbiter[data-tech="docker"] { transform: translate(-50%, -50%) rotate(205.71deg) translateY(-150px) rotate(-205.71deg); }
+    .tech-orbiter[data-tech="git"] { transform: translate(-50%, -50%) rotate(257.14deg) translateY(-150px) rotate(-257.14deg); }
+    .tech-orbiter[data-tech="cloud"] { transform: translate(-50%, -50%) rotate(308.57deg) translateY(-150px) rotate(-308.57deg); }
+    
+    .tech-tooltip {
+        left: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 100px 0 60px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .tech-orbit {
+        width: 260px;
+        height: 260px;
+    }
+    
+    .tech-orbiter {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .tech-orbiter[data-tech="python"] { transform: translate(-50%, -50%) rotate(0deg) translateY(-130px) rotate(0deg); }
+    .tech-orbiter[data-tech="javascript"] { transform: translate(-50%, -50%) rotate(51.43deg) translateY(-130px) rotate(-51.43deg); }
+    .tech-orbiter[data-tech="database"] { transform: translate(-50%, -50%) rotate(102.86deg) translateY(-130px) rotate(-102.86deg); }
+    .tech-orbiter[data-tech="aws"] { transform: translate(-50%, -50%) rotate(154.29deg) translateY(-130px) rotate(-154.29deg); }
+    .tech-orbiter[data-tech="docker"] { transform: translate(-50%, -50%) rotate(205.71deg) translateY(-130px) rotate(-205.71deg); }
+    .tech-orbiter[data-tech="git"] { transform: translate(-50%, -50%) rotate(257.14deg) translateY(-130px) rotate(-257.14deg); }
+    .tech-orbiter[data-tech="cloud"] { transform: translate(-50%, -50%) rotate(308.57deg) translateY(-130px) rotate(-308.57deg); }
+    
+    .tech-icon i {
+        font-size: 20px;
+    }
+    
+    .tech-tooltip {
+        width: 160px;
+        left: 60px;
+        padding: 10px;
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #6e45e2;
+    color: white;
+    border: 2px solid #6e45e2;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: #6e45e2;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .hero::before {
@@ -226,21 +577,134 @@ body {
     padding-top: 2rem;
 }
 
+.hero-tech {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-orbit {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    animation: rotateOrbit 30s linear infinite;
+}
+
+.tech-orbit.paused {
+    animation-play-state: paused;
+}
+
+.tech-orbit-center {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: rgba(110, 68, 226, 0.1);
+    border: 2px solid rgba(110, 68, 226, 0.3);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #6e45e2;
+    z-index: 2;
+    backdrop-filter: blur(5px);
+}
+
+.tech-orbiter {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-origin: 200px 200px;
+    transform: rotate(0) translateX(200px) rotate(0);
+}
+
+.tech-orbiter:hover {
+    transform: scale(1.1) !important;
+    z-index: 10;
+}
+
+.tech-orbiter .tech-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(110, 68, 226, 0.3);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #fff;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.tech-orbiter:hover .tech-icon {
+    background: rgba(110, 68, 226, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(110, 68, 226, 0.3);
+}
+
+.tech-tooltip {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(20px, -50%) scale(0.9);
+    width: 240px;
+    background: rgba(26, 26, 46, 0.95);
+    border: 1px solid rgba(110, 68, 226, 0.3);
+    border-radius: 12px;
+    padding: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.tech-orbiter:hover .tech-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(30px, -50%) scale(1);
+}
+
+.tech-tooltip h4 {
+    margin: 0 0 0.5rem;
+    color: #6e45e2;
+    font-size: 1.1rem;
+}
+
+.tech-tooltip p {
+    margin: 0;
+}
+
 /* Profile Wrapper */
 .profile-wrapper {
     position: relative;
     width: 100%;
     display: flex;
-    justify-content: center;
-    margin: 2rem 0;
+    justify-content: flex-start;
+    margin: 0 0 2rem;
 }
 
 /* Profile Container */
 .profile-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -248,22 +712,23 @@ body {
 
 /* Profile Picture */
 .profile-pic {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid rgba(255, 255, 255, 0.2);
+    border: 4px solid rgba(110, 68, 226, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .profile-pic:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 40px rgba(110, 68, 226, 0.3);
+    border-color: rgba(110, 68, 226, 0.6);
 }
 
 .profile-pic img {
@@ -295,22 +760,25 @@ body {
     opacity: 1;
 }
 
+/* Social Icons */
 .social-icon {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    width: 36px;
+    height: 36px;
+    background: #6e45e2;
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(110, 68, 226, 0.3);
     transition: all 0.3s ease;
-    transform-origin: center;
-    z-index: 3;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: auto;
+    z-index: 5;
 }
 
 .social-icon:hover {
@@ -350,7 +818,7 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* Position each icon in a circle */
+/* Social Icons Positioning */
 .social-icon:nth-child(1) { /* Top */
     top: 0;
     left: 50%;
@@ -395,8 +863,183 @@ body {
     transition-delay: 0.4s;
 }
 .profile-container:hover .social-icon:nth-child(5) { 
-    transform: translate(-50%, -50%) translate(100px, -100px) scale(1);
+    transform: translate(-50%, -50%) translate(80px, -80px) scale(1);
     transition-delay: 0.15s;
+}
+
+/* Tech Orbit Styles */
+.hero-tech {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-orbit {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    animation: rotateOrbit 30s linear infinite;
+}
+
+.tech-orbit.paused {
+    animation-play-state: paused;
+}
+
+.tech-orbit-center {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: rgba(110, 68, 226, 0.1);
+    border: 2px solid rgba(110, 68, 226, 0.3);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #6e45e2;
+    z-index: 2;
+    backdrop-filter: blur(5px);
+}
+
+.tech-orbiter {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform-origin: 200px 200px;
+    transform: rotate(0) translateX(200px) rotate(0);
+}
+
+.tech-orbiter:hover {
+    transform: scale(1.1) !important;
+    z-index: 10;
+}
+
+.tech-orbiter .tech-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(110, 68, 226, 0.3);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #fff;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.tech-orbiter:hover .tech-icon {
+    background: rgba(110, 68, 226, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(110, 68, 226, 0.3);
+}
+
+.tech-tooltip {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(20px, -50%) scale(0.9);
+    width: 240px;
+    background: rgba(26, 26, 46, 0.95);
+    border: 1px solid rgba(110, 68, 226, 0.3);
+    border-radius: 12px;
+    padding: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.tech-orbiter:hover .tech-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(30px, -50%) scale(1);
+}
+
+.tech-tooltip h4 {
+    margin: 0 0 0.5rem;
+    color: #6e45e2;
+    font-size: 1.1rem;
+}
+
+.tech-tooltip p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Position each orbiter */
+.tech-orbiter[data-tech="python"] { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+.tech-orbiter[data-tech="javascript"] { transform: rotate(51.4deg) translateX(200px) rotate(-51.4deg); }
+.tech-orbiter[data-tech="database"] { transform: rotate(102.8deg) translateX(200px) rotate(-102.8deg); }
+.tech-orbiter[data-tech="aws"] { transform: rotate(154.2deg) translateX(200px) rotate(-154.2deg); }
+.tech-orbiter[data-tech="docker"] { transform: rotate(205.6deg) translateX(200px) rotate(-205.6deg); }
+.tech-orbiter[data-tech="git"] { transform: rotate(257deg) translateX(200px) rotate(-257deg); }
+.tech-orbiter[data-tech="cloud"] { transform: rotate(308.4deg) translateX(200px) rotate(-308.4deg); }
+
+/* Animation */
+@keyframes rotateOrbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .hero-info {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    .profile-wrapper {
+        justify-content: center;
+    }
+    
+    .hero-cta {
+        justify-content: center;
+    }
+    
+    .hero-tech {
+        height: 400px;
+        margin-top: 2rem;
+    }
+    
+    .tech-orbit {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .tech-orbiter {
+        transform-origin: 150px 150px;
+    }
+    
+    .tech-orbiter[data-tech="python"] { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+    .tech-orbiter[data-tech="javascript"] { transform: rotate(51.4deg) translateX(150px) rotate(-51.4deg); }
+    .tech-orbiter[data-tech="database"] { transform: rotate(102.8deg) translateX(150px) rotate(-102.8deg); }
+    .tech-orbiter[data-tech="aws"] { transform: rotate(154.2deg) translateX(150px) rotate(-154.2deg); }
+    .tech-orbiter[data-tech="docker"] { transform: rotate(205.6deg) translateX(150px) rotate(-205.6deg); }
+    .tech-orbiter[data-tech="git"] { transform: rotate(257deg) translateX(150px) rotate(-257deg); }
+    .tech-orbiter[data-tech="cloud"] { transform: rotate(308.4deg) translateX(150px) rotate(-308.4deg); }
 }
 
 /* Hover effect for social icons */
