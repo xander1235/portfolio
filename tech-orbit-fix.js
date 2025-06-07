@@ -8,6 +8,73 @@ document.addEventListener('DOMContentLoaded', function() {
     const centerY = orbitRect.height / 2;
     const radius = Math.min(centerX, centerY) - 35; // Subtract half the icon size
     
+    // Create or get the center info display
+    let centerInfo = document.querySelector('.tech-center-info');
+    if (!centerInfo) {
+        centerInfo = document.createElement('div');
+        centerInfo.className = 'tech-center-info';
+        centerInfo.style.position = 'absolute';
+        centerInfo.style.top = '50%';
+        centerInfo.style.left = '50%';
+        centerInfo.style.transform = 'translate(-50%, -50%)';
+        centerInfo.style.width = '150px';
+        centerInfo.style.textAlign = 'center';
+        centerInfo.style.color = 'white';
+        centerInfo.style.zIndex = '5';
+        centerInfo.style.opacity = '0';
+        centerInfo.style.transition = 'opacity 0.3s ease';
+        centerInfo.style.pointerEvents = 'none'; // Don't interfere with other interactions
+        centerInfo.innerHTML = '<h4></h4><p></p>';
+        
+        // Create a wrapper for the center info that will counter-rotate
+        const centerInfoWrapper = document.createElement('div');
+        centerInfoWrapper.className = 'tech-center-info-wrapper';
+        centerInfoWrapper.style.position = 'absolute';
+        centerInfoWrapper.style.top = '50%';
+        centerInfoWrapper.style.left = '50%';
+        centerInfoWrapper.style.transform = 'translate(-50%, -50%)';
+        centerInfoWrapper.style.zIndex = '5';
+        
+        // Add the center info to the wrapper, then add wrapper to orbit
+        centerInfoWrapper.appendChild(centerInfo);
+        orbit.appendChild(centerInfoWrapper);
+    } else {
+        // If centerInfo already exists, make sure it's in the right place
+        if (!document.querySelector('.tech-center-info-wrapper')) {
+            const parent = centerInfo.parentNode;
+            const centerInfoWrapper = document.createElement('div');
+            centerInfoWrapper.className = 'tech-center-info-wrapper';
+            centerInfoWrapper.style.position = 'absolute';
+            centerInfoWrapper.style.top = '50%';
+            centerInfoWrapper.style.left = '50%';
+            centerInfoWrapper.style.transform = 'translate(-50%, -50%)';
+            centerInfoWrapper.style.zIndex = '5';
+            
+            parent.removeChild(centerInfo);
+            centerInfoWrapper.appendChild(centerInfo);
+            orbit.appendChild(centerInfoWrapper);
+        }
+    }
+    
+    // Create a counter-rotation animation for the center info wrapper
+    const centerInfoCounterRotation = document.createElement('style');
+    centerInfoCounterRotation.textContent = `
+        @keyframes centerInfoCounterRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+    `;
+    document.head.appendChild(centerInfoCounterRotation);
+    
+    // Apply counter-rotation to the center info wrapper
+    const centerInfoWrapper = document.querySelector('.tech-center-info-wrapper');
+    if (centerInfoWrapper) {
+        centerInfoWrapper.style.animation = 'centerInfoCounterRotate 30s linear infinite';
+    }
+    
+    // Get the orbit center element
+    const orbitCenter = document.querySelector('.tech-orbit-center');
+    
     // Get all tech orbiters
     const orbiters = document.querySelectorAll('.tech-orbiter');
     const totalOrbiters = orbiters.length;
@@ -52,27 +119,108 @@ document.addEventListener('DOMContentLoaded', function() {
         const tooltip = orbiter.querySelector('.tech-tooltip');
         if (tooltip) {
             tooltip.style.animation = `counterRotate${index} 30s linear infinite`;
+            tooltip.style.opacity = '0';
+            tooltip.style.visibility = 'hidden';
         }
+        
+        // Handle hover on the entire orbiter element
+        orbiter.addEventListener('mouseenter', () => {
+            // Pause the orbit animation
+            orbit.classList.add('paused');
+            orbiters.forEach(orb => {
+                const orb_icon = orb.querySelector('.tech-icon');
+                const orb_tooltip = orb.querySelector('.tech-tooltip');
+                if (orb_icon) orb_icon.style.animationPlayState = 'paused';
+                if (orb_tooltip) orb_tooltip.style.animationPlayState = 'paused';
+            });
+            
+            // Pause the center info wrapper animation
+            if (centerInfoWrapper) {
+                centerInfoWrapper.style.animationPlayState = 'paused';
+            }
+            
+            // Show info in the center
+            if (orbitCenter) {
+                orbitCenter.style.opacity = '0.2'; // Dim the center icon
+            }
+            
+            // Get tech info from the tooltip
+            const tooltipTitle = orbiter.querySelector('.tech-tooltip h4')?.textContent || '';
+            const tooltipText = orbiter.querySelector('.tech-tooltip p')?.textContent || '';
+            
+            // Display in center info
+            centerInfo.querySelector('h4').textContent = tooltipTitle;
+            centerInfo.querySelector('p').textContent = tooltipText;
+            centerInfo.style.opacity = '1';
+            
+            // Highlight the current orbiter
+            orbiter.style.zIndex = '10';
+            orbiter.style.transform = 'translate(-50%, -50%) scale(1.1)';
+        });
+        
+        orbiter.addEventListener('mouseleave', () => {
+            // Resume the orbit animation only if not hovering on any other orbiter
+            if (!orbit.matches(':hover')) {
+                orbit.classList.remove('paused');
+                orbiters.forEach(orb => {
+                    const orb_icon = orb.querySelector('.tech-icon');
+                    const orb_tooltip = orb.querySelector('.tech-tooltip');
+                    if (orb_icon) orb_icon.style.animationPlayState = 'running';
+                    if (orb_tooltip) orb_tooltip.style.animationPlayState = 'running';
+                });
+                
+                // Resume the center info wrapper animation
+                if (centerInfoWrapper) {
+                    centerInfoWrapper.style.animationPlayState = 'running';
+                }
+            }
+            
+            // Hide center info
+            if (orbitCenter) {
+                orbitCenter.style.opacity = '1'; // Restore center icon
+            }
+            centerInfo.style.opacity = '0';
+            
+            // Reset the current orbiter
+            orbiter.style.zIndex = '1';
+            orbiter.style.transform = 'translate(-50%, -50%)';
+        });
     });
     
-    // Pause animation on hover
+    // Pause animation on hover over the entire orbit
     orbit.addEventListener('mouseenter', () => {
         orbit.classList.add('paused');
-        orbiters.forEach((orbiter, index) => {
+        orbiters.forEach((orbiter) => {
             const icon = orbiter.querySelector('.tech-icon');
             const tooltip = orbiter.querySelector('.tech-tooltip');
             if (icon) icon.style.animationPlayState = 'paused';
             if (tooltip) tooltip.style.animationPlayState = 'paused';
         });
+        
+        // Pause the center info wrapper animation
+        if (centerInfoWrapper) {
+            centerInfoWrapper.style.animationPlayState = 'paused';
+        }
     });
     
     orbit.addEventListener('mouseleave', () => {
         orbit.classList.remove('paused');
-        orbiters.forEach((orbiter, index) => {
+        orbiters.forEach((orbiter) => {
             const icon = orbiter.querySelector('.tech-icon');
             const tooltip = orbiter.querySelector('.tech-tooltip');
             if (icon) icon.style.animationPlayState = 'running';
             if (tooltip) tooltip.style.animationPlayState = 'running';
         });
+        
+        // Resume the center info wrapper animation
+        if (centerInfoWrapper) {
+            centerInfoWrapper.style.animationPlayState = 'running';
+        }
+        
+        // Hide center info when leaving the orbit
+        if (orbitCenter) {
+            orbitCenter.style.opacity = '1';
+        }
+        centerInfo.style.opacity = '0';
     });
 });

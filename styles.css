@@ -310,11 +310,44 @@ body {
     justify-content: center;
     z-index: 5;
     box-shadow: 0 0 20px rgba(110, 69, 226, 0.6);
+    transition: opacity 0.3s ease;
 }
 
 .tech-orbit-center i {
     font-size: 32px;
     color: white;
+}
+
+.tech-center-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    text-align: center;
+    color: white;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    background: rgba(110, 68, 226, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(110, 68, 226, 0.5);
+}
+
+.tech-center-info h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.tech-center-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .tech-orbiter {
@@ -375,23 +408,20 @@ body {
 /* Tooltip styles */
 .tech-tooltip {
     position: absolute;
-    background: rgba(20, 20, 40, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
     width: 200px;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 10;
-    left: 80px; /* Position to the right of the icon */
-    top: 50%; 
-    transform: translateY(-50%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(110, 69, 226, 0.3);
+    transform-origin: center;
     pointer-events: none;
-    /* Apply counter-rotation animation to keep tooltips readable */
-    animation: counterRotate 20s linear infinite;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: none;
 }
 
 .tech-orbit.paused .tech-tooltip {
