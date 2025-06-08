@@ -2,10 +2,10 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # Trigger on pushes to main branch
+    branches: [ feature-restructure-to-handle-dynamically ]
   pull_request:
-    branches: [ main ]  # For PRs to main branch
-  workflow_dispatch:      # Allow manual triggers
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,13 +22,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Clean up disk space
+      - name: Clean up disk space
+        run: |
+          # Remove unnecessary packages and clean up apt cache
+          sudo apt-get update -y
+          sudo apt-get autoremove -y
+          sudo apt-get clean
+          
+          # Clear npm cache
+          npm cache clean --force
+          
+          # Clear pip cache
+          python -m pip cache purge
+          
+          # Remove old Docker containers and images
+          docker system prune -af --volumes
+          
+          # Remove old build files
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /usr/local/.ghcup
+          
+          # Show disk usage
+          df -h
+          du -sh /home/runner/* | sort -hr | head -n 10
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: '/'
       
       - name: Deploy to GitHub Pages
