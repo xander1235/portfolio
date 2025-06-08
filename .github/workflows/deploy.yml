@@ -22,42 +22,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Clean up disk space
-      - name: Clean up disk space
+      # Diagnostic: Show available disk space before cleanup
+      - name: Show disk space (before cleanup)
+        run: df -h
+
+      # Clean up disk space to prevent "No space left on device" errors
+      - name: Free up disk space
         run: |
-          # Remove unnecessary packages and clean up apt cache
-          sudo apt-get update -y
-          sudo apt-get autoremove -y
-          sudo apt-get clean
-          
-          # Clear npm cache
-          npm cache clean --force
-          
-          # Clear pip cache
-          python -m pip cache purge
-          
-          # Remove old Docker containers and images
-          docker system prune -af --volumes
-          
-          # Remove old build files
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
           sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          sudo rm -rf /usr/local/.ghcup
-          
-          # Clean up previous build artifacts and node_modules
-          rm -rf node_modules/
-          rm -rf .next/
-          rm -rf out/
-          rm -rf build/
-          rm -rf dist/
-          rm -rf .cache/
-          rm -f package-lock.json
-          rm -f yarn.lock
-          rm -f pnpm-lock.yaml
-          
-          # Show disk usage
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
           df -h
-          du -sh /home/runner/* | sort -hr | head -n 10
+
+      # (Optional) Show largest directories for debug, remove if not needed
+      - name: Show largest folders
+        run: du -h -d 1 / | sort -hr | head -40
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -66,7 +47,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: '/'
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
