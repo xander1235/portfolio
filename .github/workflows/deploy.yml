@@ -44,6 +44,17 @@ jobs:
           sudo rm -rf /opt/hostedtoolcache/CodeQL
           sudo rm -rf /usr/local/.ghcup
           
+          # Clean up previous build artifacts and node_modules
+          rm -rf node_modules/
+          rm -rf .next/
+          rm -rf out/
+          rm -rf build/
+          rm -rf dist/
+          rm -rf .cache/
+          rm -f package-lock.json
+          rm -f yarn.lock
+          rm -f pnpm-lock.yaml
+          
           # Show disk usage
           df -h
           du -sh /home/runner/* | sort -hr | head -n 10
