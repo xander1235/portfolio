@@ -645,6 +645,11 @@ body {
         padding: 100px 0 60px;
     }
     
+    .btn {
+        padding: 0.6rem 1.8rem;
+        margin-bottom: 15px;
+    }
+    
     .hero-title {
         font-size: 2.5rem;
     }

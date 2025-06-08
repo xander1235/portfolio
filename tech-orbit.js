@@ -91,9 +91,61 @@
     function destroyRevive() {
         // Only allow starting the animation if we're in idle state
         if (animationState === 'idle') {
+            // Disable all interactions on orbiters and center element
+            disableOrbitInteractions();
             startSpinningAnimation();
         } else if (animationState === 'exploded') {
             // If we're already exploded, do nothing - the revive button handles this
+        }
+    }
+    
+    // Function to disable all interactions on the orbit area
+    function disableOrbitInteractions() {
+        // Disable center element interactions
+        if (centerElem) {
+            centerElem.style.pointerEvents = 'none';
+        }
+        
+        // Disable all orbiter interactions
+        orbiters.forEach(orbiter => {
+            orbiter.style.pointerEvents = 'none';
+        });
+        
+        // Add an overlay to prevent any clicks on the orbit area
+        const overlay = document.createElement('div');
+        overlay.className = 'orbit-overlay';
+        Object.assign(overlay.style, {
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            zIndex: '5',
+            cursor: 'default',
+            backgroundColor: 'transparent'
+        });
+        orbit.appendChild(overlay);
+    }
+    
+    // Function to re-enable all interactions on the orbit area
+    function enableOrbitInteractions() {
+        // Re-enable center element interactions
+        if (centerElem) {
+            centerElem.style.pointerEvents = 'auto';
+        }
+        
+        // Re-enable all orbiter interactions
+        orbiters.forEach(orbiter => {
+            // Only re-enable if not absorbed
+            if (!orbiter.dataset.absorbed) {
+                orbiter.style.pointerEvents = 'auto';
+            }
+        });
+        
+        // Remove the overlay
+        const overlay = orbit.querySelector('.orbit-overlay');
+        if (overlay && overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
         }
     }
     
@@ -208,9 +260,17 @@
         animationState = 'pulling';
         const { centerX, centerY, radius } = calculateOrbitDimensions();
         
+        // Remove any existing black hole elements first
+        document.querySelectorAll('.black-hole, .black-hole-clone').forEach(bh => {
+            if (bh && bh.parentNode) {
+                bh.parentNode.removeChild(bh);
+            }
+        });
+        
         // Create a clone of the center element that will grow to absorb orbiters
         const blackHole = document.createElement('div');
         blackHole.className = 'black-hole';
+        blackHole.id = 'main-black-hole'; // Add an ID for easier targeting
         Object.assign(blackHole.style, {
             position: 'absolute',
             left: `${centerX}px`,
@@ -286,155 +346,446 @@
         });
         
         // After all orbiters are absorbed, trigger the final black hole state
+        // Add a console log to debug
+        console.log('Scheduling finalizeBlackHole after', totalPullTime + 800, 'ms');
         setTimeout(() => {
+            console.log('Executing finalizeBlackHole');
             finalizeBlackHole(centerX, centerY, radius);
         }, totalPullTime + 800);
     }
-    
+
     function finalizeBlackHole(centerX, centerY, radius) {
         animationState = 'exploded';
         
-        // Get the black hole element we created
+        // Hide the original center element completely
+        if (centerElem) {
+            centerElem.style.display = 'none'; // Use display:none instead of opacity
+            centerElem.style.opacity = '0';
+            centerElem.style.transform = 'translate(-50%, -50%) scale(0)';
+            centerElem.style.transition = 'all 0.3s ease';
+        }
+        
+        // Get all black hole elements
+        const blackHoleClone = document.querySelector('.black-hole-clone');
         const blackHole = document.querySelector('.black-hole');
         
         if (blackHole) {
-            // Final pulse of the black hole
-            blackHole.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
-            blackHole.style.transform = 'translate(-50%, -50%) scale(2.5)';
-            blackHole.style.boxShadow = '0 0 60px rgba(0, 0, 0, 0.9), 0 0 120px rgba(110, 69, 226, 0.8)';
+            // Final pulse of the black hole before explosion
+            blackHole.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            blackHole.style.transform = 'translate(-50%, -50%) scale(2.8)';
+            blackHole.style.boxShadow = '0 0 80px rgba(0, 0, 0, 0.9), 0 0 150px rgba(110, 69, 226, 0.9)';
             
-            // After a delay, fade out the black hole
+            // Create explosion particles
             setTimeout(() => {
-                blackHole.style.transition = 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-                blackHole.style.opacity = '0';
-                blackHole.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                console.log('Creating explosion effect');
+                // Trigger explosion effect
+                createExplosion(centerX, centerY, radius);
                 
-                // Show the revive button
-                setTimeout(() => {
-                    createReviveButton(centerX, centerY, radius);
-                    
-                    // Clean up - remove all clones and the black hole
-                    setTimeout(() => {
-                        // Remove all cloned orbiters
-                        const clones = document.querySelectorAll('[id$="-clone"]');
-                        clones.forEach(clone => {
-                            if (clone && clone.parentNode) {
-                                clone.parentNode.removeChild(clone);
-                            }
-                        });
-                        
-                        // Remove the black hole
-                        if (blackHole && blackHole.parentNode) {
-                            blackHole.parentNode.removeChild(blackHole);
-                        }
-                    }, 500);
-                }, 1000);
-            }, 1000);
-        } else {
-            // Fallback in case black hole element isn't found
-            createReviveButton(centerX, centerY, radius);
-        }
-    }
-    
-    // Function to create and animate the revive button
-    function createReviveButton(x, y, radius) {
-        // Create a dot that will transform into the revive button
-        const dot = document.createElement('div');
-        dot.className = 'revive-dot';
-        Object.assign(dot.style, {
-            position: 'absolute',
-            left: `${x}px`,
-            top: `${y}px`,
-            transform: 'translate(-50%, -50%)',
-            width: '5px',
-            height: '5px',
-            borderRadius: '50%',
-            backgroundColor: '#6e45e2',
-            boxShadow: '0 0 10px rgba(110, 69, 226, 0.8)',
-            opacity: '0',
-            transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
-        });
-        orbit.appendChild(dot);
-        
-        // Animate the dot appearing
-        setTimeout(() => {
-            dot.style.opacity = '1';
-            
-            // Start revolving animation
-            setTimeout(() => {
-                // Create the actual revive button that will replace the dot
-                const reviveBtn = document.createElement('div');
-                reviveBtn.className = 'revive-button';
-                Object.assign(reviveBtn.style, {
-                    position: 'absolute',
-                    left: `${x}px`,
-                    top: `${y}px`,
-                    transform: 'translate(-50%, -50%) scale(0)',
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    backgroundColor: '#6e45e2',
-                    boxShadow: '0 0 20px rgba(110, 69, 226, 0.6)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '24px',
-                    cursor: 'pointer',
-                    transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)', // Bouncy effect
-                    opacity: '0',
-                    zIndex: '100'
+                // Hide the black hole during explosion
+                blackHole.style.transition = 'all 0.2s ease';
+                blackHole.style.opacity = '0';
+                blackHole.style.transform = 'translate(-50%, -50%) scale(0)';
+
+                // Slowly disappearing the tech orbits
+                const orbiters = document.querySelectorAll('.tech-orbiter');
+                orbiters.forEach(orbiter => {
+                    // console.log('Disappearing orbit', orbiter);
+                    orbiter.style.transition = 'opacity 0.5s ease';
+                    orbiter.style.opacity = '0';
                 });
                 
-                // Add refresh icon
-                reviveBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
-                orbit.appendChild(reviveBtn);
-                
-                // Remove the dot
-                orbit.removeChild(dot);
-                
-                // Animate the button appearing with a revolving motion
+                // After explosion completes, clean up elements
+                console.log('Scheduling cleanup');
                 setTimeout(() => {
-                    reviveBtn.style.opacity = '1';
-                    reviveBtn.style.transform = 'translate(-50%, -50%) scale(1) rotate(720deg)';
-                    
-                    // Add click event to revive
-                    reviveBtn.addEventListener('click', () => {
-                        // Remove the revive button
-                        orbit.removeChild(reviveBtn);
-                        
-                        // Reset everything
-                        resetAnimation(x, y, radius);
+                    console.log('Cleaning up explosion particles and black hole');
+                    // Clean up explosion particles and black hole
+                    const explosionParticles = document.querySelectorAll('.explosion-particle');
+                    explosionParticles.forEach(particle => {
+                        if (particle && particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
                     });
-                }, 50);
-            }, 1000); // Revolve for 1 second before transforming
-        }, 500);
+                    
+                    // Remove all cloned orbiters
+                    const clones = document.querySelectorAll('[id$="-clone"]');
+                    clones.forEach(clone => {
+                        if (clone && clone.parentNode) {
+                            clone.parentNode.removeChild(clone);
+                        }
+                    });
+                    
+                    // Remove all black hole elements
+                    if (blackHole && blackHole.parentNode) {
+                        blackHole.parentNode.removeChild(blackHole);
+                    }
+                    
+                    if (blackHoleClone && blackHoleClone.parentNode) {
+                        blackHoleClone.parentNode.removeChild(blackHoleClone);
+                    }
+                    
+                    // Remove any other black hole elements that might exist
+                    document.querySelectorAll('.black-hole').forEach(bh => {
+                        if (bh && bh.parentNode) {
+                            bh.parentNode.removeChild(bh);
+                        }
+                    });
+                }, 2000); // Wait for explosion animation to complete
+            }, 800);
+
+            // // Slowly appearing the tech orbits
+            // const orbiters = document.querySelectorAll('.tech-orbit');
+            // orbiters.forEach(orbiter => {
+            //     orbiter.style.transition = 'opacity 0.2s ease';
+            //     orbiter.style.opacity = '1';
+            // });
+        } else {
+            // Fallback in case black hole element isn't found
+            console.log('Black hole element not found, directly creating explosion');
+            createExplosion(centerX, centerY, radius);
+        }
     }
+
+    // function finalizeBlackHole(centerX, centerY, radius) {
+    //     animationState = 'exploded';
+        
+    //     // Hide the original center element completely
+    //     if (centerElem) {
+    //         centerElem.style.display = 'none'; // Use display:none instead of opacity
+    //         centerElem.style.opacity = '0';
+    //         centerElem.style.transform = 'translate(-50%, -50%) scale(0)';
+    //         centerElem.style.transition = 'all 0.3s ease';
+    //     }
+        
+    //     // Get all black hole elements
+    //     const blackHoleClone = document.querySelector('.black-hole-clone');
+    //     const blackHole = document.querySelector('.black-hole');
+        
+    //     if (blackHole) {
+    //         // Final pulse of the black hole before explosion
+    //         blackHole.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    //         blackHole.style.transform = 'translate(-50%, -50%) scale(2.8)';
+    //         blackHole.style.boxShadow = '0 0 80px rgba(0, 0, 0, 0.9), 0 0 150px rgba(110, 69, 226, 0.9)';
+            
+    //         // Create explosion particles
+    //         setTimeout(() => {
+    //             console.log('Creating explosion effect');
+    //             // Trigger explosion effect
+    //             createExplosion(centerX, centerY, radius);
+                
+    //             // Hide the black hole during explosion
+    //             blackHole.style.transition = 'all 0.2s ease';
+    //             blackHole.style.opacity = '0';
+    //             blackHole.style.transform = 'translate(-50%, -50%) scale(0)';
+                
+    //             // After explosion completes, clean up elements
+    //             console.log('Scheduling cleanup');
+    //             setTimeout(() => {
+    //                 console.log('Cleaning up explosion particles and black hole');
+    //                 // Clean up explosion particles and black hole
+    //                 const explosionParticles = document.querySelectorAll('.explosion-particle');
+    //                 explosionParticles.forEach(particle => {
+    //                     if (particle && particle.parentNode) {
+    //                         particle.parentNode.removeChild(particle);
+    //                     }
+    //                 });
+                    
+    //                 // Remove all cloned orbiters
+    //                 const clones = document.querySelectorAll('[id$="-clone"]');
+    //                 clones.forEach(clone => {
+    //                     if (clone && clone.parentNode) {
+    //                         clone.parentNode.removeChild(clone);
+    //                     }
+    //                 });
+                    
+    //                 // Remove all black hole elements
+    //                 if (blackHole && blackHole.parentNode) {
+    //                     blackHole.parentNode.removeChild(blackHole);
+    //                 }
+                    
+    //                 if (blackHoleClone && blackHoleClone.parentNode) {
+    //                     blackHoleClone.parentNode.removeChild(blackHoleClone);
+    //                 }
+                    
+    //                 // Remove any other black hole elements that might exist
+    //                 document.querySelectorAll('.black-hole').forEach(bh => {
+    //                     if (bh && bh.parentNode) {
+    //                         bh.parentNode.removeChild(bh);
+    //                     }
+    //                 });
+    //             }, 1500); // Wait for explosion animation to complete
+    //         }, 800);
+    //     } else {
+    //         // Fallback in case black hole element isn't found
+    //         console.log('Black hole element not found, directly creating explosion');
+    //         createExplosion(centerX, centerY, radius);
+    //     }
+    // }
+    
+    // function finalizeBlackHole(centerX, centerY, radius) {
+    //     animationState = 'exploded';
+        
+    //     // Hide the original center element completely
+    //     if (centerElem) {
+    //         centerElem.style.opacity = '0';
+    //         centerElem.style.transform = 'translate(-50%, -50%) scale(0)';
+    //         centerElem.style.transition = 'all 0.3s ease';
+    //     }
+        
+    //     // Get all black hole elements
+    //     const blackHoleClone = document.querySelector('.black-hole-clone');
+    //     const blackHole = document.querySelector('.black-hole');
+        
+    //     if (blackHole) {
+    //         // Final pulse of the black hole before explosion
+    //         blackHole.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    //         blackHole.style.transform = 'translate(-50%, -50%) scale(2.8)';
+    //         blackHole.style.boxShadow = '0 0 80px rgba(0, 0, 0, 0.9), 0 0 150px rgba(110, 69, 226, 0.9)';
+            
+    //         // Create explosion particles
+    //         setTimeout(() => {
+    //             console.log('Creating explosion effect');
+    //             // Trigger explosion effect
+    //             createExplosion(centerX, centerY, radius);
+                
+    //             // Hide the black hole during explosion
+    //             blackHole.style.transition = 'all 0.2s ease';
+    //             blackHole.style.opacity = '0';
+                
+    //             // After explosion completes, clean up elements
+    //             console.log('Scheduling cleanup');
+    //             setTimeout(() => {
+    //                 console.log('Cleaning up explosion particles and black hole');
+    //                 // Clean up explosion particles and black hole
+    //                 const explosionParticles = document.querySelectorAll('.explosion-particle');
+    //                 explosionParticles.forEach(particle => {
+    //                     if (particle && particle.parentNode) {
+    //                         particle.parentNode.removeChild(particle);
+    //                     }
+    //                 });
+                    
+    //                 // Remove all cloned orbiters
+    //                 const clones = document.querySelectorAll('.orbiter-clone');
+    //                 clones.forEach(clone => {
+    //                     if (clone && clone.parentNode) {
+    //                         clone.parentNode.removeChild(clone);
+    //                     }
+    //                 });
+                    
+    //                 // Remove all black hole elements
+    //                 if (blackHole && blackHole.parentNode) {
+    //                     blackHole.parentNode.removeChild(blackHole);
+    //                 }
+                    
+    //                 if (blackHoleClone && blackHoleClone.parentNode) {
+    //                     blackHoleClone.parentNode.removeChild(blackHoleClone);
+    //                 }
+                    
+    //                 // Remove any other black hole elements that might exist
+    //                 document.querySelectorAll('.black-hole').forEach(bh => {
+    //                     if (bh && bh.parentNode) {
+    //                         bh.parentNode.removeChild(bh);
+    //                     }
+    //                 });
+    //             }, 1500); // Wait for explosion animation to complete
+    //         }, 800);
+    //     } else {
+    //         // Fallback in case black hole element isn't found
+    //         console.log('Black hole element not found, directly creating explosion');
+    //         createExplosion(centerX, centerY, radius);
+    //     }
+    // }
+    
+    // Function to create explosion effect
+    function createExplosion(centerX, centerY, radius) {
+        console.log('Inside createExplosion function');
+        // Number of particles for the explosion
+        const particleCount = 20;
+        
+        // Create explosion particles
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'explosion-particle';
+            
+            // Random angle for particle trajectory
+            const angle = Math.random() * Math.PI * 2;
+            // Random distance for particle to travel
+            const distance = radius * (0.5 + Math.random() * 1.5);
+            // Random size for particle
+            const size = 3 + Math.random() * 8;
+            // Random duration for animation
+            const duration = 0.6 + Math.random() * 0.9;
+            
+            // Set particle styles
+            Object.assign(particle.style, {
+                position: 'absolute',
+                left: `${centerX}px`,
+                top: `${centerY}px`,
+                width: `${size}px`,
+                height: `${size}px`,
+                borderRadius: '50%',
+                backgroundColor: '#6e45e2',
+                boxShadow: '0 0 8px rgba(110, 69, 226, 0.8), 0 0 12px rgba(110, 69, 226, 0.6)',
+                transform: 'translate(-50%, -50%)',
+                opacity: '0.9',
+                zIndex: '100',
+                transition: `all ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+            });
+            
+            // Add to DOM
+            orbit.appendChild(particle);
+            
+            // Trigger animation after a small delay
+            setTimeout(() => {
+                // Calculate end position
+                const endX = centerX + Math.cos(angle) * distance;
+                const endY = centerY + Math.sin(angle) * distance;
+                
+                // Animate particle
+                particle.style.transform = `translate(-50%, -50%) scale(${0.2 + Math.random() * 0.8})`;
+                particle.style.left = `${endX}px`;
+                particle.style.top = `${endY}px`;
+                particle.style.opacity = '0';
+            }, 10);
+        }
+        
+        // Ensure we create the revive button after the explosion animation completes
+        setTimeout(() => {
+            console.log('Explosion animation complete, creating revive button');
+            createSpinningOrbitWithRevive(centerX, centerY, radius);
+        }, 200);
+    }
+    
+    // Function to create spinning orbit with revive button
+    function createSpinningOrbitWithRevive(centerX, centerY, radius) {
+        console.log('Creating spinning orbit with revive button');
+        // Create a single revive button that spins
+        const reviveBtn = document.createElement('div');
+        reviveBtn.className = 'revive-button';
+        Object.assign(reviveBtn.style, {
+            position: 'absolute',
+            left: `${centerX}px`,
+            top: `${centerY}px`,
+            transform: 'translate(-50%, -50%) scale(0)',
+            width: '80px',
+            height: '80px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, var(--primary-color), #6e45e2)',
+            boxShadow: '0 0 20px rgba(110, 69, 226, 0.6), 0 0 40px rgba(110, 69, 226, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            opacity: '0',
+            transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            zIndex: '20'
+        });
+        
+        // Add sync icon using Font Awesome
+        const syncIcon = document.createElement('i');
+        syncIcon.className = 'fas fa-sync';
+        Object.assign(syncIcon.style, {
+            fontSize: '32px',
+            color: 'white',
+            animation: 'rotateIcon 20s linear infinite'
+        });
+        reviveBtn.appendChild(syncIcon);
+        
+        orbit.appendChild(reviveBtn);
+        
+        // Create a style element for our animations if it doesn't exist
+        if (!document.querySelector('#orbit-animations')) {
+            const styleElement = document.createElement('style');
+            styleElement.id = 'orbit-animations';
+            styleElement.textContent = `
+                @keyframes fastSpin {
+                    0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.2); }
+                    60% { transform: translate(-50%, -50%) rotate(1440deg) scale(0.9); }
+                    100% { transform: translate(-50%, -50%) rotate(1800deg) scale(1); }
+                }
+                @keyframes slowSpin {
+                    0% { transform: translate(-50%, -50%) rotate(0deg); }
+                    100% { transform: translate(-50%, -50%) rotate(360deg); }
+                }
+                @keyframes pulseGlow {
+                    0%, 100% { 
+                        box-shadow: 0 0 20px rgba(110, 69, 226, 0.6),
+                                  0 0 40px rgba(110, 69, 226, 0.3),
+                                  inset 0 0 20px rgba(255, 255, 255, 0.1);
+                        transform: translate(-50%, -50%) scale(1);
+                    }
+                    50% { 
+                        box-shadow: 0 0 40px rgba(110, 69, 226, 0.8),
+                                  0 0 60px rgba(110, 69, 226, 0.4),
+                                  inset 0 0 30px rgba(255, 255, 255, 0.2);
+                        transform: translate(-50%, -50%) scale(1.05);
+                    }
+                }
+            `;
+            document.head.appendChild(styleElement);
+        }
+        
+        // Re-enable specific interactions now that the revive element is shown
+        const overlay = orbit.querySelector('.orbit-overlay');
+        if (overlay && overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
+        
+        // Initial fast spin animation that slows down
+        setTimeout(() => {
+            reviveBtn.style.opacity = '1';
+            reviveBtn.style.animation = 'fastSpin 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000)';
+            
+            // After the fast spin completes, switch to slower continuous spin and pulse
+            setTimeout(() => {
+                reviveBtn.style.animation = 'slowSpin 10s linear infinite, pulseGlow 3s ease-in-out infinite';
+                
+                // Add click event to revive button
+                reviveBtn.addEventListener('click', () => {
+                    // Remove the revive button
+                    // if (reviveBtn.parentNode) {
+                    //     reviveBtn.parentNode.removeChild(reviveBtn);
+                    // }
+                
+                    
+                    // Reset everything
+                    resetAnimation(centerX, centerY, radius);
+                });
+            }, 1200); // Wait for fast spin to complete
+        }, 300);
+    }
+    
+    // Helper function is no longer needed since we handle this directly in the click event
     
     function resetAnimation(centerX, centerY, radius) {
         animationState = 'idle';
         
-        // Clean up any remaining clones or black hole elements
-        const clones = document.querySelectorAll('[id$="-clone"]');
-        clones.forEach(clone => {
-            if (clone && clone.parentNode) {
-                clone.parentNode.removeChild(clone);
+        // Cleanup all clones, black holes, and particles
+        document.querySelectorAll('.orbiter-clone, .black-hole, .black-hole-clone, .explosion-particle, .revive-button').forEach(element => {
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
             }
         });
         
-        const blackHole = document.querySelector('.black-hole');
-        if (blackHole && blackHole.parentNode) {
-            blackHole.parentNode.removeChild(blackHole);
-        }
+        // Remove any spinning orbit elements
+        document.querySelectorAll('.orbit-ring').forEach(ring => {
+            if (ring && ring.parentNode) {
+                console.log('Removing orbit ring', ring);
+                ring.parentNode.removeChild(ring);
+            }
+        });
         
         // Restore the center element
         if (centerElem) {
+            console.log('Restoring center element', centerElem);
             centerElem.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             centerElem.style.opacity = '1';
             centerElem.style.transform = 'scale(1)';
             centerElem.style.backgroundColor = '';
             centerElem.style.boxShadow = '';
-            centerElem.style.zIndex = ''; // Reset z-index
+            centerElem.style.zIndex = '5'; // Reset z-index
+            centerElem.style.pointerEvents = 'auto'; // Re-enable click events
+            centerElem.style.cursor = 'pointer'; // Restore pointer cursor
+            centerElem.style.display = 'flex';
             
             // Restore the code icon
             const codeIcon = centerElem.querySelector('i');
