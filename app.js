@@ -19,7 +19,6 @@ function initializePortfolio() {
     populateAbout();
     populateTimeline();
     populateSkills();
-    populateProjects();
     populateFooter();
     
     // Update page title
@@ -282,78 +281,6 @@ function populateSkills() {
     });
 }
 
-// Populate Projects
-function populateProjects() {
-    const projectsSection = document.querySelector('.projects');
-    if (!projectsSection) return;
-
-    // Create projects grid if it doesn't exist
-    let projectsGrid = projectsSection.querySelector('.projects-grid');
-    if (!projectsGrid) {
-        projectsGrid = document.createElement('div');
-        projectsGrid.className = 'projects-grid';
-        projectsSection.querySelector('.container').appendChild(projectsGrid);
-    }
-
-    portfolioData.projects.forEach((project, index) => {
-        const projectCard = document.createElement('div');
-        projectCard.className = 'project-card';
-        projectCard.setAttribute('data-aos', 'fade-up');
-        projectCard.setAttribute('data-aos-delay', index * 100);
-
-        const techStack = project.technologies.map(tech => 
-            `<span class="project-tech">${tech}</span>`
-        ).join('');
-
-        const links = [];
-        if (project.github) {
-            links.push(`<a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-link">
-                <i class="fab fa-github"></i> GitHub
-            </a>`);
-        }
-        if (project.demo) {
-            links.push(`<a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="project-link">
-                <i class="fas fa-external-link-alt"></i> Demo
-            </a>`);
-        }
-
-        projectCard.innerHTML = `
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <div class="project-tech-stack">${techStack}</div>
-            <div class="project-links">${links.join('')}</div>
-        `;
-
-        projectsGrid.appendChild(projectCard);
-    });
-}
-
-// Populate Footer
-function populateFooter() {
-    const socialLinks = document.querySelector('footer .social-links');
-    if (socialLinks) {
-        portfolioData.social.forEach(social => {
-            const link = document.createElement('a');
-            link.href = social.url;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.setAttribute('aria-label', social.label);
-            
-            const icon = document.createElement('i');
-            icon.className = social.icon;
-            link.appendChild(icon);
-            
-            socialLinks.appendChild(link);
-        });
-    }
-    
-    // Set footer name
-    const footerName = document.getElementById('footer-name');
-    if (footerName) {
-        footerName.textContent = portfolioData.personal.name;
-    }
-}
-
 // Export functions for potential use in other scripts
 window.portfolioApp = {
     initializePortfolio,
@@ -362,6 +289,5 @@ window.portfolioApp = {
     populateAbout,
     populateTimeline,
     populateSkills,
-    populateProjects,
     populateFooter
 };

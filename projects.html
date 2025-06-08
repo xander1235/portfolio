@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Projects - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles-dynamic.css">
+    <link rel="stylesheet" href="projects-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILZFYJ5PGxfpd6FG8ISRcMbHHKF0e5pjek==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <!-- Code Background Effect -->
+    <canvas id="codeCanvas"></canvas>
+    <div class="mouse-glow"></div>
+
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="brand">
-                    <a href="#" class="logo">VR</a>
+                    <a href="index.html" class="logo">VR</a>
                     <span class="brand-name"></span>
                 </div>
                 <nav class="nav-links">
@@ -33,69 +39,28 @@
         </div>
     </header>
 
-    <div class="hero">
+    <main class="projects-main">
         <div class="container">
-            <div class="hero-grid">
-                <!-- Left Side: Profile Info -->
-                <div class="hero-info">
-                    <div class="profile-wrapper">
-                        <div class="profile-container">
-                            <div class="profile-pic">
-                                <img src="" alt="Profile Image" id="profileImage">
-                            </div>
-                            <div class="social-circle">
-                                <!-- Social icons will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h1 class="hero-title"></h1>
-                    <p class="tagline"></p>
-                    <p class="hero-description"></p>
-                    
-                    <div class="hero-cta">
-                        <!-- CTA buttons will be populated by JavaScript -->
-                    </div>
-                </div>
-                
-                <!-- Right Side: Tech Orbit -->
-                <div class="hero-tech">
-                    <div class="tech-orbit">
-                        <!-- Tech orbit will be populated by JavaScript -->
-                    </div>
-                </div>
+            <div class="projects-hero">
+                <h1 class="projects-title">My Projects</h1>
+                <p class="projects-subtitle">Exploring innovation through code</p>
+            </div>
+
+            <!-- Filter buttons -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="data">Data Engineering</button>
+                <button class="filter-btn" data-filter="ml">Machine Learning</button>
+                <button class="filter-btn" data-filter="cloud">Cloud & DevOps</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-showcase">
+                <!-- Projects will be populated by JavaScript -->
             </div>
         </div>
-    </div>
-
-    <section class="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <!-- About content will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <section class="timeline">
-        <div class="container">
-            <h2>My Journey</h2>
-            <div class="timeline-container">
-                <!-- Timeline items will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <section class="skills">
-        <div class="container">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <!-- Skills will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-
+    </main>
 
     <footer>
         <div class="container">
@@ -107,23 +72,22 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fZGX4fvKVbHY6lpJoeyyWe28h7mWTDv7JQ2MZ0o0tVAA5k+aNcBkpH5fR7G1+yGkRAHw8WjmswfSPmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     
     <!-- Portfolio Data Configuration -->
     <script src="data.js"></script>
     
-    <!-- Dynamic Content Population -->
-    <script src="app.js"></script>
+    <!-- Projects Page Scripts -->
+    <script src="projects-app.js"></script>
+    <script src="code-background.js"></script>
     
-    <!-- Original Scripts -->
+    <!-- Original Scripts (modified for projects page) -->
     <script src="script.js" defer></script>
-    <script src="tech-orbit.js" defer></script>
     
     <script>
         // Initialize AOS after all content is loaded
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof AOS !== 'undefined') {
-                // Small delay to ensure dynamic content is loaded
                 setTimeout(() => {
                     AOS.init({
                         duration: 800,

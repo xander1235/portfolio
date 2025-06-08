@@ -18,7 +18,7 @@ const portfolioData = {
         { href: "#about", text: "About" },
         { href: "#timeline", text: "Experience" },
         { href: "#skills", text: "Skills" },
-        { href: "#projects", text: "Projects" }
+        { href: "projects.html", text: "Projects" }
     ],
 
     // Social Links
