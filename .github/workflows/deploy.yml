@@ -23,8 +23,14 @@ jobs:
         uses: actions/checkout@v4
 
       # Diagnostic: Show available disk space before cleanup
-      - name: Show disk space (before cleanup)
-        run: df -h
+      - name: Show disk usage at very start
+        run: |
+          echo "Runner disk usage:"
+          df -h
+          echo "Top directories by usage:"
+          sudo du -h -d 1 /home/runner | sort -hr | head -20
+          sudo du -h -d 1 / | sort -hr | head -20
+
 
       # Clean up disk space to prevent "No space left on device" errors
       - name: Free up disk space
@@ -46,7 +52,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '/'
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
