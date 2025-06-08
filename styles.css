@@ -728,7 +728,7 @@ body {
     /* Fix for unfilled edges */
     padding: 0.9rem 2.1rem;
     border-radius: 50px;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .btn-primary:hover {
@@ -736,6 +736,7 @@ body {
     color: white;
     box-shadow: 0 6px 20px rgba(110, 69, 226, 0.6);
     background: linear-gradient(135deg, #7d56ea, #98e0db);
+    overflow: hidden;
 }
 
 .btn-outline {

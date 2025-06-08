@@ -445,157 +445,7 @@
         }
     }
 
-    // function finalizeBlackHole(centerX, centerY, radius) {
-    //     animationState = 'exploded';
-        
-    //     // Hide the original center element completely
-    //     if (centerElem) {
-    //         centerElem.style.display = 'none'; // Use display:none instead of opacity
-    //         centerElem.style.opacity = '0';
-    //         centerElem.style.transform = 'translate(-50%, -50%) scale(0)';
-    //         centerElem.style.transition = 'all 0.3s ease';
-    //     }
-        
-    //     // Get all black hole elements
-    //     const blackHoleClone = document.querySelector('.black-hole-clone');
-    //     const blackHole = document.querySelector('.black-hole');
-        
-    //     if (blackHole) {
-    //         // Final pulse of the black hole before explosion
-    //         blackHole.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    //         blackHole.style.transform = 'translate(-50%, -50%) scale(2.8)';
-    //         blackHole.style.boxShadow = '0 0 80px rgba(0, 0, 0, 0.9), 0 0 150px rgba(110, 69, 226, 0.9)';
-            
-    //         // Create explosion particles
-    //         setTimeout(() => {
-    //             console.log('Creating explosion effect');
-    //             // Trigger explosion effect
-    //             createExplosion(centerX, centerY, radius);
-                
-    //             // Hide the black hole during explosion
-    //             blackHole.style.transition = 'all 0.2s ease';
-    //             blackHole.style.opacity = '0';
-    //             blackHole.style.transform = 'translate(-50%, -50%) scale(0)';
-                
-    //             // After explosion completes, clean up elements
-    //             console.log('Scheduling cleanup');
-    //             setTimeout(() => {
-    //                 console.log('Cleaning up explosion particles and black hole');
-    //                 // Clean up explosion particles and black hole
-    //                 const explosionParticles = document.querySelectorAll('.explosion-particle');
-    //                 explosionParticles.forEach(particle => {
-    //                     if (particle && particle.parentNode) {
-    //                         particle.parentNode.removeChild(particle);
-    //                     }
-    //                 });
-                    
-    //                 // Remove all cloned orbiters
-    //                 const clones = document.querySelectorAll('[id$="-clone"]');
-    //                 clones.forEach(clone => {
-    //                     if (clone && clone.parentNode) {
-    //                         clone.parentNode.removeChild(clone);
-    //                     }
-    //                 });
-                    
-    //                 // Remove all black hole elements
-    //                 if (blackHole && blackHole.parentNode) {
-    //                     blackHole.parentNode.removeChild(blackHole);
-    //                 }
-                    
-    //                 if (blackHoleClone && blackHoleClone.parentNode) {
-    //                     blackHoleClone.parentNode.removeChild(blackHoleClone);
-    //                 }
-                    
-    //                 // Remove any other black hole elements that might exist
-    //                 document.querySelectorAll('.black-hole').forEach(bh => {
-    //                     if (bh && bh.parentNode) {
-    //                         bh.parentNode.removeChild(bh);
-    //                     }
-    //                 });
-    //             }, 1500); // Wait for explosion animation to complete
-    //         }, 800);
-    //     } else {
-    //         // Fallback in case black hole element isn't found
-    //         console.log('Black hole element not found, directly creating explosion');
-    //         createExplosion(centerX, centerY, radius);
-    //     }
-    // }
-    
-    // function finalizeBlackHole(centerX, centerY, radius) {
-    //     animationState = 'exploded';
-        
-    //     // Hide the original center element completely
-    //     if (centerElem) {
-    //         centerElem.style.opacity = '0';
-    //         centerElem.style.transform = 'translate(-50%, -50%) scale(0)';
-    //         centerElem.style.transition = 'all 0.3s ease';
-    //     }
-        
-    //     // Get all black hole elements
-    //     const blackHoleClone = document.querySelector('.black-hole-clone');
-    //     const blackHole = document.querySelector('.black-hole');
-        
-    //     if (blackHole) {
-    //         // Final pulse of the black hole before explosion
-    //         blackHole.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    //         blackHole.style.transform = 'translate(-50%, -50%) scale(2.8)';
-    //         blackHole.style.boxShadow = '0 0 80px rgba(0, 0, 0, 0.9), 0 0 150px rgba(110, 69, 226, 0.9)';
-            
-    //         // Create explosion particles
-    //         setTimeout(() => {
-    //             console.log('Creating explosion effect');
-    //             // Trigger explosion effect
-    //             createExplosion(centerX, centerY, radius);
-                
-    //             // Hide the black hole during explosion
-    //             blackHole.style.transition = 'all 0.2s ease';
-    //             blackHole.style.opacity = '0';
-                
-    //             // After explosion completes, clean up elements
-    //             console.log('Scheduling cleanup');
-    //             setTimeout(() => {
-    //                 console.log('Cleaning up explosion particles and black hole');
-    //                 // Clean up explosion particles and black hole
-    //                 const explosionParticles = document.querySelectorAll('.explosion-particle');
-    //                 explosionParticles.forEach(particle => {
-    //                     if (particle && particle.parentNode) {
-    //                         particle.parentNode.removeChild(particle);
-    //                     }
-    //                 });
-                    
-    //                 // Remove all cloned orbiters
-    //                 const clones = document.querySelectorAll('.orbiter-clone');
-    //                 clones.forEach(clone => {
-    //                     if (clone && clone.parentNode) {
-    //                         clone.parentNode.removeChild(clone);
-    //                     }
-    //                 });
-                    
-    //                 // Remove all black hole elements
-    //                 if (blackHole && blackHole.parentNode) {
-    //                     blackHole.parentNode.removeChild(blackHole);
-    //                 }
-                    
-    //                 if (blackHoleClone && blackHoleClone.parentNode) {
-    //                     blackHoleClone.parentNode.removeChild(blackHoleClone);
-    //                 }
-                    
-    //                 // Remove any other black hole elements that might exist
-    //                 document.querySelectorAll('.black-hole').forEach(bh => {
-    //                     if (bh && bh.parentNode) {
-    //                         bh.parentNode.removeChild(bh);
-    //                     }
-    //                 });
-    //             }, 1500); // Wait for explosion animation to complete
-    //         }, 800);
-    //     } else {
-    //         // Fallback in case black hole element isn't found
-    //         console.log('Black hole element not found, directly creating explosion');
-    //         createExplosion(centerX, centerY, radius);
-    //     }
-    // }
-    
-    // Function to create explosion effect
+
     function createExplosion(centerX, centerY, radius) {
         console.log('Inside createExplosion function');
         // Number of particles for the explosion
@@ -654,105 +504,174 @@
             createSpinningOrbitWithRevive(centerX, centerY, radius);
         }, 200);
     }
-    
+
     // Function to create spinning orbit with revive button
     function createSpinningOrbitWithRevive(centerX, centerY, radius) {
-        console.log('Creating spinning orbit with revive button');
-        // Create a single revive button that spins
-        const reviveBtn = document.createElement('div');
-        reviveBtn.className = 'revive-button';
-        Object.assign(reviveBtn.style, {
-            position: 'absolute',
-            left: `${centerX}px`,
-            top: `${centerY}px`,
-            transform: 'translate(-50%, -50%) scale(0)',
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, var(--primary-color), #6e45e2)',
-            boxShadow: '0 0 20px rgba(110, 69, 226, 0.6), 0 0 40px rgba(110, 69, 226, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            opacity: '0',
-            transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
-            zIndex: '20'
-        });
+    console.log('Creating spinning orbit with revive button');
+    // Create a single revive button that spins - positioned exactly where the center element was
+    const reviveBtn = document.createElement('div');
+    reviveBtn.className = 'revive-button';
+
+    // Get the exact computed dimensions of the center element
+    let centerElemSize = { width: '80px', height: '80px' }; // Default fallback
+
+    if (centerElem) {
+        // Get the actual computed style of the center element for size only
+        const computedStyle = window.getComputedStyle(centerElem);
         
-        // Add sync icon using Font Awesome
-        const syncIcon = document.createElement('i');
-        syncIcon.className = 'fas fa-sync';
-        Object.assign(syncIcon.style, {
-            fontSize: '32px',
-            color: 'white',
-            animation: 'rotateIcon 20s linear infinite'
-        });
-        reviveBtn.appendChild(syncIcon);
-        
-        orbit.appendChild(reviveBtn);
-        
-        // Create a style element for our animations if it doesn't exist
-        if (!document.querySelector('#orbit-animations')) {
-            const styleElement = document.createElement('style');
-            styleElement.id = 'orbit-animations';
-            styleElement.textContent = `
-                @keyframes fastSpin {
-                    0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.2); }
-                    60% { transform: translate(-50%, -50%) rotate(1440deg) scale(0.9); }
-                    100% { transform: translate(-50%, -50%) rotate(1800deg) scale(1); }
-                }
-                @keyframes slowSpin {
-                    0% { transform: translate(-50%, -50%) rotate(0deg); }
-                    100% { transform: translate(-50%, -50%) rotate(360deg); }
-                }
-                @keyframes pulseGlow {
-                    0%, 100% { 
-                        box-shadow: 0 0 20px rgba(110, 69, 226, 0.6),
-                                  0 0 40px rgba(110, 69, 226, 0.3),
-                                  inset 0 0 20px rgba(255, 255, 255, 0.1);
-                        transform: translate(-50%, -50%) scale(1);
-                    }
-                    50% { 
-                        box-shadow: 0 0 40px rgba(110, 69, 226, 0.8),
-                                  0 0 60px rgba(110, 69, 226, 0.4),
-                                  inset 0 0 30px rgba(255, 255, 255, 0.2);
-                        transform: translate(-50%, -50%) scale(1.05);
-                    }
-                }
-            `;
-            document.head.appendChild(styleElement);
-        }
-        
-        // Re-enable specific interactions now that the revive element is shown
-        const overlay = orbit.querySelector('.orbit-overlay');
-        if (overlay && overlay.parentNode) {
-            overlay.parentNode.removeChild(overlay);
-        }
-        
-        // Initial fast spin animation that slows down
-        setTimeout(() => {
-            reviveBtn.style.opacity = '1';
-            reviveBtn.style.animation = 'fastSpin 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000)';
-            
-            // After the fast spin completes, switch to slower continuous spin and pulse
-            setTimeout(() => {
-                reviveBtn.style.animation = 'slowSpin 10s linear infinite, pulseGlow 3s ease-in-out infinite';
-                
-                // Add click event to revive button
-                reviveBtn.addEventListener('click', () => {
-                    // Remove the revive button
-                    // if (reviveBtn.parentNode) {
-                    //     reviveBtn.parentNode.removeChild(reviveBtn);
-                    // }
-                
-                    
-                    // Reset everything
-                    resetAnimation(centerX, centerY, radius);
-                });
-            }, 1200); // Wait for fast spin to complete
-        }, 300);
+        // Get exact size
+        centerElemSize = {
+            width: computedStyle.width,
+            height: computedStyle.height
+        };
     }
+
+    // Apply the exact same styling as the center element
+    // Use the passed centerX and centerY for position (these are the orbit center coordinates)
+    Object.assign(reviveBtn.style, {
+        position: 'absolute',
+        left: `${centerX}px`,
+        top: `${centerY}px`,
+        transform: 'translate(-50%, -50%) scale(0)',
+        width: centerElemSize.width,
+        height: centerElemSize.height,
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, var(--primary-color), #6e45e2)',
+        boxShadow: '0 0 20px rgba(110, 69, 226, 0.6), 0 0 40px rgba(110, 69, 226, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        opacity: '0',
+        transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        zIndex: '20'
+    });
+
+    // Update button size on window resize to match center element
+    const updateReviveButtonSize = () => {
+        if (centerElem) {
+            const computedStyle = window.getComputedStyle(centerElem);
+            reviveBtn.style.width = computedStyle.width;
+            reviveBtn.style.height = computedStyle.height;
+            
+            // Recalculate center position on resize
+            const { centerX: newCenterX, centerY: newCenterY } = calculateOrbitDimensions();
+            reviveBtn.style.left = `${newCenterX}px`;
+            reviveBtn.style.top = `${newCenterY}px`;
+        }
+    };
+
+    // Store the resize handler so we can remove it later
+    reviveBtn._resizeHandler = updateReviveButtonSize;
+    window.addEventListener('resize', updateReviveButtonSize);
+
+    // Add sync icon using Font Awesome
+    const syncIcon = document.createElement('i');
+    syncIcon.className = 'fas fa-sync';
+
+    // Get the font size from the original center icon
+    let iconSize = '32px'; // Default fallback
+    if (centerElem) {
+        const centerIcon = centerElem.querySelector('i');
+        if (centerIcon) {
+            const computedStyle = window.getComputedStyle(centerIcon);
+            iconSize = computedStyle.fontSize;
+        }
+    }
+
+    // Apply the same size as the original icon
+    Object.assign(syncIcon.style, {
+        fontSize: iconSize,
+        color: 'white',
+        animation: 'rotateIcon 20s linear infinite'
+    });
+
+    // Update icon size on window resize to match center icon
+    const updateIconSize = () => {
+        if (centerElem) {
+            const centerIcon = centerElem.querySelector('i');
+            if (centerIcon) {
+                const computedStyle = window.getComputedStyle(centerIcon);
+                syncIcon.style.fontSize = computedStyle.fontSize;
+            }
+        }
+    };
+
+    // Store the resize handler so we can remove it later
+    syncIcon._resizeHandler = updateIconSize;
+    window.addEventListener('resize', updateIconSize);
+
+    reviveBtn.appendChild(syncIcon);
+
+    orbit.appendChild(reviveBtn);
+
+    // Create a style element for our animations if it doesn't exist
+    if (!document.querySelector('#orbit-animations')) {
+        const styleElement = document.createElement('style');
+        styleElement.id = 'orbit-animations';
+        styleElement.textContent = `
+            @keyframes fastSpin {
+                0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.2); }
+                100% { transform: translate(-50%, -50%) rotate(1800deg) scale(1); }
+            }
+            @keyframes slowSpin {
+                0% { transform: translate(-50%, -50%) rotate(0deg); }
+                100% { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+            @keyframes pulseGlow {
+                0%, 100% { 
+                    box-shadow: 0 0 20px rgba(110, 69, 226, 0.6),
+                                0 0 40px rgba(110, 69, 226, 0.3),
+                                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                50% { 
+                    box-shadow: 0 0 40px rgba(110, 69, 226, 0.8),
+                                0 0 60px rgba(110, 69, 226, 0.4),
+                                inset 0 0 30px rgba(255, 255, 255, 0.2);
+                    transform: translate(-50%, -50%) scale(1.05);
+                }
+            }
+            @keyframes rotateIcon {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(styleElement);
+    }
+
+    // Re-enable specific interactions now that the revive element is shown
+    const overlay = orbit.querySelector('.orbit-overlay');
+    if (overlay && overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+    }
+
+    // Initial fast spin animation that slows down
+    setTimeout(() => {
+        reviveBtn.style.opacity = '1';
+        reviveBtn.style.animation = 'fastSpin 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000)';
+        
+        // After the fast spin completes, switch to slower continuous spin and pulse
+        setTimeout(() => {
+            reviveBtn.style.animation = 'slowSpin 10s linear infinite, pulseGlow 3s ease-in-out infinite';
+            
+            // Add click event to revive button
+            reviveBtn.addEventListener('click', () => {
+                // Clean up resize event listeners before removing the button
+                if (reviveBtn._resizeHandler) {
+                    window.removeEventListener('resize', reviveBtn._resizeHandler);
+                }
+                if (syncIcon._resizeHandler) {
+                    window.removeEventListener('resize', syncIcon._resizeHandler);
+                }
+                
+                // Reset everything
+                resetAnimation(centerX, centerY, radius);
+            });
+        }, 1200); // Wait for fast spin to complete
+    }, 300);
+    }
+
     
     // Helper function is no longer needed since we handle this directly in the click event
     
