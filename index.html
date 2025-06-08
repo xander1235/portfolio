@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veerender Rathod | Senior Software & Data Engineer</title>
+    <title>Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles-dynamic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILZFYJ5PGxfpd6FG8ISRcMbHHKF0e5pjek==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header class="header">
@@ -16,13 +18,10 @@
             <div class="header-content">
                 <div class="brand">
                     <a href="#" class="logo">VR</a>
-                    <span class="brand-name">Veerender Rathod</span>
+                    <span class="brand-name"></span>
                 </div>
                 <nav class="nav-links">
-                    <a href="#" class="nav-link active">Home</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#blogs" class="nav-link">Blogs</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <!-- Navigation links will be populated by JavaScript -->
                 </nav>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
@@ -33,6 +32,7 @@
             </div>
         </div>
     </header>
+
     <div class="hero">
         <div class="container">
             <div class="hero-grid">
@@ -41,116 +41,27 @@
                     <div class="profile-wrapper">
                         <div class="profile-container">
                             <div class="profile-pic">
-                                <img src="images/my_pic.jpg" alt="Veerender Rathod" id="profileImage">
+                                <img src="" alt="Profile Image" id="profileImage">
                             </div>
                             <div class="social-circle">
-                                <a href="https://github.com/xander1235" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
-                                <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                                <a href="#" class="social-icon" title="Medium"><i class="fab fa-medium"></i></a>
-                                <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
-                                <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                <!-- Social icons will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
                     
-                    <h1 class="hero-title">Veerender Rathod</h1>
-                    <p class="tagline">Senior Software Engineer &amp; Data Engineer</p>
-                    <p class="hero-description">
-                        I'm a passionate software engineer specializing in data engineering, full-stack development, 
-                        and cloud infrastructure. With expertise across multiple technologies, I build efficient 
-                        and scalable solutions to solve complex problems.
-                    </p>
+                    <h1 class="hero-title"></h1>
+                    <p class="tagline"></p>
+                    <p class="hero-description"></p>
                     
                     <div class="hero-cta">
-                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="#projects" class="btn btn-outline">View My Work</a>
+                        <!-- CTA buttons will be populated by JavaScript -->
                     </div>
                 </div>
                 
                 <!-- Right Side: Tech Orbit -->
                 <div class="hero-tech">
                     <div class="tech-orbit">
-                        <!-- Center Icon -->
-                        <div class="tech-orbit-center">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        
-                        <!-- Python -->
-                        <div class="tech-orbiter" data-tech="python">
-                            <a href="#python-projects" class="tech-icon">
-                                <i class="fab fa-python"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>Python</h4>
-                                <p>Advanced data processing, API development, and automation with Python</p>
-                            </div>
-                        </div>
-                        
-                        <!-- JavaScript -->
-                        <div class="tech-orbiter" data-tech="javascript">
-                            <a href="#javascript-projects" class="tech-icon">
-                                <i class="fab fa-js"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>JavaScript</h4>
-                                <p>Frontend development with modern JavaScript frameworks and libraries</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Database -->
-                        <div class="tech-orbiter" data-tech="database">
-                            <a href="#database-projects" class="tech-icon">
-                                <i class="fas fa-database"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>Database</h4>
-                                <p>SQL and NoSQL database design, optimization, and management</p>
-                            </div>
-                        </div>
-                        
-                        <!-- AWS -->
-                        <div class="tech-orbiter" data-tech="aws">
-                            <a href="#aws-projects" class="tech-icon">
-                                <i class="fab fa-aws"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>AWS</h4>
-                                <p>Cloud architecture and deployment using Amazon Web Services</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Docker -->
-                        <div class="tech-orbiter" data-tech="docker">
-                            <a href="#docker-projects" class="tech-icon">
-                                <i class="fab fa-docker"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>Docker</h4>
-                                <p>Container-based application development and deployment</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Git -->
-                        <div class="tech-orbiter" data-tech="git">
-                            <a href="#git-projects" class="tech-icon">
-                                <i class="fab fa-git-alt"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>Git</h4>
-                                <p>Version control and collaborative development workflows</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Cloud -->
-                        <div class="tech-orbiter" data-tech="cloud">
-                            <a href="#cloud-projects" class="tech-icon">
-                                <i class="fas fa-cloud"></i>
-                            </a>
-                            <div class="tech-tooltip">
-                                <h4>Cloud Computing</h4>
-                                <p>Multi-cloud expertise and serverless architecture design</p>
-                            </div>
-                        </div>
+                        <!-- Tech orbit will be populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -160,7 +71,9 @@
     <section class="about">
         <div class="container">
             <h2>About Me</h2>
-            <p>Passionate technologist with expertise in software engineering and data solutions. I turn complex problems into elegant solutions.</p>
+            <div class="about-content">
+                <!-- About content will be populated by JavaScript -->
+            </div>
         </div>
     </section>
 
@@ -168,39 +81,7 @@
         <div class="container">
             <h2>My Journey</h2>
             <div class="timeline-container">
-                <div class="timeline-item" data-year="2023 - Present">
-                    <div class="timeline-content">
-                        <h3>Senior Software Engineer</h3>
-                        <p>Leading development of scalable backend systems and data pipelines.</p>
-                        <div class="tech-stack">
-                            <span>Python</span>
-                            <span>Kubernetes</span>
-                            <span>Apache Spark</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item" data-year="2020 - 2023">
-                    <div class="timeline-content">
-                        <h3>Software Engineer</h3>
-                        <p>Developed and maintained microservices architecture.</p>
-                        <div class="tech-stack">
-                            <span>Node.js</span>
-                            <span>MongoDB</span>
-                            <span>Docker</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item" data-year="2018 - 2020">
-                    <div class="timeline-content">
-                        <h3>Junior Software Engineer</h3>
-                        <p>Built and maintained web applications and APIs.</p>
-                        <div class="tech-stack">
-                            <span>JavaScript</span>
-                            <span>React</span>
-                            <span>SQL</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Timeline items will be populated by JavaScript -->
             </div>
         </div>
     </section>
@@ -209,24 +90,16 @@
         <div class="container">
             <h2>Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Backend</h3>
-                    <div class="skill" data-level="90">Python</div>
-                    <div class="skill" data-level="85">Node.js</div>
-                    <div class="skill" data-level="80">Java</div>
-                </div>
-                <div class="skill-category">
-                    <h3>Data</h3>
-                    <div class="skill" data-level="85">SQL</div>
-                    <div class="skill" data-level="80">Apache Spark</div>
-                    <div class="skill" data-level="75">Hadoop</div>
-                </div>
-                <div class="skill-category">
-                    <h3>DevOps</h3>
-                    <div class="skill" data-level="85">Docker</div>
-                    <div class="skill" data-level="80">Kubernetes</div>
-                    <div class="skill" data-level="75">AWS</div>
-                </div>
+                <!-- Skills will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <div class="projects-grid">
+                <!-- Projects will be populated by JavaScript -->
             </div>
         </div>
     </section>
@@ -234,15 +107,39 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+                <!-- Social links will be populated by JavaScript -->
             </div>
-            <p>&copy; 2024 Veerender Rathod. All rights reserved.</p>
+            <p>&copy; <span id="current-year"></span> <span id="footer-name"></span>. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="tech-orbit.js"></script>
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fZGX4fvKVbHY6lpJoeyyWe28h7mWTDv7JQ2MZ0o0tVAA5k+aNcBkpH5fR7G1+yGkRAHw8WjmswfSPmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Portfolio Data Configuration -->
+    <script src="data.js"></script>
+    
+    <!-- Dynamic Content Population -->
+    <script src="app.js"></script>
+    
+    <!-- Original Scripts -->
+    <script src="script.js" defer></script>
+    <script src="tech-orbit.js" defer></script>
+    
+    <script>
+        // Initialize AOS after all content is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                // Small delay to ensure dynamic content is loaded
+                setTimeout(() => {
+                    AOS.init({
+                        duration: 800,
+                        easing: 'ease-in-out',
+                        once: true
+                    });
+                }, 100);
+            }
+        });
+    </script>
 </body>
 </html>
