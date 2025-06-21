@@ -32,7 +32,7 @@ const portfolioData = {
 
     // Hero CTA Buttons
     heroCTA: [
-        { text: "View Projects", href: "#projects", class: "btn btn-primary" },
+        { text: "View Projects", href: "projects.html", class: "btn btn-primary" },
         { text: "Download Resume", href: "#", class: "btn btn-outline", download: true }
     ],
 

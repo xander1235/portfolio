@@ -1301,3 +1301,59 @@ footer {
     font-size: 12px;
     z-index: 10000;
 }
+
+/* Ensure page starts at top */
+html, body {
+    scroll-behavior: smooth;
+}
+
+/* Prevent any auto-focus that might cause scrolling */
+*:focus {
+    scroll-margin-top: 100px;
+}
+
+/* Fix any potential anchor link scroll positions */
+section[id] {
+    scroll-margin-top: 80px; /* Height of your fixed header */
+}
+
+/* Add this to your main styles.css file */
+
+/* Prevent scroll bounce and ensure page starts at top */
+html {
+    scroll-behavior: smooth;
+    /* Prevent overscroll bounce */
+    overscroll-behavior-y: none;
+}
+
+body {
+    /* Prevent overscroll bounce */
+    overscroll-behavior-y: none;
+}
+
+/* Prevent any auto-focus that might cause scrolling */
+*:focus {
+    scroll-margin-top: 100px;
+}
+
+/* Ensure sections don't have negative margins that could cause scroll issues */
+section {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Fix any potential anchor link scroll positions */
+section[id] {
+    scroll-margin-top: 80px; /* Height of your fixed header */
+}
+
+/* Specific fix for journey section */
+.journey-wrapper {
+    /* Prevent scroll interference */
+    overscroll-behavior: contain;
+}
+
+.journey-timeline-track {
+    /* Contain scroll within the timeline */
+    overscroll-behavior-x: contain;
+}

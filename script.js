@@ -1,3 +1,26 @@
+// Prevent auto-scroll on page load
+window.addEventListener('DOMContentLoaded', function() {
+    // Force scroll to top on page load
+    window.scrollTo(0, 0);
+    
+    // Also set it after a small delay to catch any late scrolling
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 100);
+});
+
+// If the page has a hash in the URL, remove it
+if (window.location.hash) {
+    history.replaceState(null, null, window.location.pathname + window.location.search);
+}
+
+// Prevent scroll restoration
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Theme Toggle
     const themeToggle = document.getElementById('themeToggle');

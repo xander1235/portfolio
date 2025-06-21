@@ -226,33 +226,34 @@ function populateAbout() {
 
 // Populate Timeline
 function populateTimeline() {
-    const timelineContainer = document.querySelector('.timeline-container');
-    if (!timelineContainer) return;
+    // const timelineContainer = document.querySelector('.timeline-container');
+    // if (!timelineContainer) return;
 
-    portfolioData.timeline.forEach((item, index) => {
-        const timelineItem = document.createElement('div');
-        timelineItem.className = 'timeline-item';
-        timelineItem.setAttribute('data-year', item.year);
-        timelineItem.setAttribute('data-aos', index % 2 === 0 ? 'fade-right' : 'fade-left');
-        timelineItem.setAttribute('data-aos-delay', index * 100);
+    // portfolioData.timeline.forEach((item, index) => {
+    //     const timelineItem = document.createElement('div');
+    //     timelineItem.className = 'timeline-item';
+    //     timelineItem.setAttribute('data-year', item.year);
+    //     timelineItem.setAttribute('data-aos', index % 2 === 0 ? 'fade-right' : 'fade-left');
+    //     timelineItem.setAttribute('data-aos-delay', index * 100);
 
-        const content = document.createElement('div');
-        content.className = 'timeline-content';
+    //     const content = document.createElement('div');
+    //     content.className = 'timeline-content';
         
-        const techStack = item.technologies.map(tech => 
-            `<span>${tech}</span>`
-        ).join('');
+    //     const techStack = item.technologies.map(tech => 
+    //         `<span>${tech}</span>`
+    //     ).join('');
 
-        content.innerHTML = `
-            <h3>${item.title}</h3>
-            <h4>${item.company}</h4>
-            <p>${item.description}</p>
-            <div class="tech-stack">${techStack}</div>
-        `;
+    //     content.innerHTML = `
+    //         <h3>${item.title}</h3>
+    //         <h4>${item.company}</h4>
+    //         <p>${item.description}</p>
+    //         <div class="tech-stack">${techStack}</div>
+    //     `;
 
-        timelineItem.appendChild(content);
-        timelineContainer.appendChild(timelineItem);
-    });
+    //     timelineItem.appendChild(content);
+    //     timelineContainer.appendChild(timelineItem);
+    // });
+    return;
 }
 
 // Populate Skills
