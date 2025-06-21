@@ -201,16 +201,19 @@ class InteractiveJourney {
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                // Re-check mobile status on resize
-                const wasMobile = window.innerWidth <= 768;
-                
-                // Update current milestone position
-                if (this.timelineNodes[this.currentIndex]) {
+                // Determine if we are in mobile view and the journey section is currently visible
+                const isMobileViewport = window.innerWidth <= 1024;
+                const journeyVisible = this.isJourneyVisible();
+
+                // Only attempt to scroll the active node into view when the journey section
+                // itself is visible. This avoids the page unexpectedly jumping to the journey
+                // section on very small screens when the user is at a different position.
+                if (isMobileViewport && journeyVisible && this.timelineNodes[this.currentIndex]) {
                     this.scrollNodeIntoView(this.timelineNodes[this.currentIndex]);
                 }
-                
+
                 // Adjust autoplay based on screen size
-                if (wasMobile && this.isPlaying) {
+                if (isMobileViewport && this.isPlaying) {
                     this.stopAutoPlay();
                 }
             }, 250);

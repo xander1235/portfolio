@@ -113,8 +113,10 @@ body:hover .mouse-glow {
 /* Projects Showcase Grid */
 .projects-showcase {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
+    justify-items: center; /* Center items horizontally */
+    justify-content: center; /* Center grid itself */
     animation: fadeInUp 1s ease 0.4s both;
 }
 
@@ -222,6 +224,7 @@ body:hover .mouse-glow {
 /* Project Content */
 .project-content {
     padding: 2rem;
+    text-align: center; /* Center text on all screens */
 }
 
 .project-content h3 {
@@ -376,9 +379,9 @@ body.dark .project-stats {
 @media (max-width: 768px) {
     /* Projects grid - 2 columns on mobile portrait */
     .projects-showcase {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 1rem;
-        padding: 0 0.5rem;
+        padding: 0;
     }
     
     /* Adjust project cards for smaller size */
@@ -392,6 +395,7 @@ body.dark .project-stats {
     
     .project-content {
         padding: 1rem;
+        text-align: center; /* Center text on mobile portrait */
     }
     
     .project-content h3 {
@@ -445,6 +449,7 @@ body.dark .project-stats {
     .projects-showcase {
         grid-template-columns: 1fr;
         gap: 1.25rem;
+        justify-items: center; /* Center project cards horizontally */
     }
     
     .project-image {
@@ -453,6 +458,7 @@ body.dark .project-stats {
     
     .project-content {
         padding: 1.25rem;
+        text-align: center; /* Center text on very small screens */
     }
     
     .project-content h3 {
@@ -499,10 +505,50 @@ body.dark .project-stats {
     }
 }
 
+/* Fix alignment: force single-column grid up to 600px wide */
+@media (max-width: 600px) {
+    /* Expand container full-width and reduce side padding */
+    .projects-main .container {
+        width: 100%;
+        padding: 0 12px; /* minimal gutters */
+    }
+    /* Remove extra padding inside grid */
+    .projects-showcase {
+        padding: 0;
+    }
+
+    .projects-showcase {
+        grid-template-columns: 1fr;
+    }
+    .project-item {
+        width: auto;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto; /* Center each card */
+    }
+}
+
 /* Tablet portrait - keep 2 columns but larger */
+
+/* Ultra-small screens – below 390px */
+@media (max-width: 389px) {
+    .projects-showcase {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .project-item {
+        width: auto;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto; /* Center each card */
+    }
+}
+
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
     .projects-showcase {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 1.5rem;
     }
 }
