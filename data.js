@@ -17,7 +17,7 @@ const portfolioData = {
     navigation: [
         { href: "#about", text: "About" },
         { href: "#timeline", text: "Experience" },
-        { href: "#skills", text: "Skills" },
+        { href: "skills.html", text: "Skills" },
         { href: "projects.html", text: "Projects" }
     ],
 
