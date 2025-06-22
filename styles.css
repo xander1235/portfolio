@@ -1089,11 +1089,15 @@ h2::after {
 }
 
 .skill-category {
-    background: white;
+    background: var(--bg-color);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .skill-category {
+    background: var(--dark-section-bg);
 }
 
 .skill-category:hover {

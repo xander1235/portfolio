@@ -69,6 +69,21 @@ function populateSkills() {
 
         skillsGrid.appendChild(skillCategory);
     });
+
+    // Initialize progress bars and labels similar to the main script
+    document.querySelectorAll('.skill').forEach(skill => {
+        const skillText = skill.textContent;
+        const skillLevel = skill.getAttribute('data-level');
+        skill.innerHTML = `
+            <div class="skill-name">
+                <span>${skillText}</span>
+                <span>${skillLevel}%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 0;"></div>
+            </div>
+        `;
+    });
 }
 
 // Populate Footer (same as projects page)
