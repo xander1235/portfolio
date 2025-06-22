@@ -28,11 +28,11 @@ function populateHeader() {
     const navLinks = document.querySelector('.nav-links');
     if (navLinks) {
         const skillsNav = [
-            { href: 'index.html', text: 'Home' },
             { href: 'index.html#about', text: 'About' },
             { href: 'index.html#timeline', text: 'Experience' },
             { href: 'skills.html', text: 'Skills', active: true },
-            { href: 'projects.html', text: 'Projects' }
+            { href: 'projects.html', text: 'Projects' },
+            { href: 'contact.html', text: 'Contact' }
         ];
 
         skillsNav.forEach(link => {
@@ -68,6 +68,21 @@ function populateSkills() {
         });
 
         skillsGrid.appendChild(skillCategory);
+    });
+
+    // Initialize progress bars and labels similar to the main script
+    document.querySelectorAll('.skill').forEach(skill => {
+        const skillText = skill.textContent;
+        const skillLevel = skill.getAttribute('data-level');
+        skill.innerHTML = `
+            <div class="skill-name">
+                <span>${skillText}</span>
+                <span>${skillLevel}%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-level" style="width: 0;"></div>
+            </div>
+        `;
     });
 }
 

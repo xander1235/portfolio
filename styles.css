@@ -1089,11 +1089,15 @@ h2::after {
 }
 
 .skill-category {
-    background: white;
+    background: var(--bg-color);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .skill-category {
+    background: var(--dark-section-bg);
 }
 
 .skill-category:hover {
@@ -1173,6 +1177,26 @@ h2::after {
 .tech-stack span:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Page */
+.contact-info {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.contact-info li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contact-info i {
+    color: var(--primary-color);
 }
 
 /* Footer */

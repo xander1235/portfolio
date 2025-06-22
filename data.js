@@ -18,7 +18,8 @@ const portfolioData = {
         { href: "#about", text: "About" },
         { href: "#timeline", text: "Experience" },
         { href: "skills.html", text: "Skills" },
-        { href: "projects.html", text: "Projects" }
+        { href: "projects.html", text: "Projects" },
+        { href: "contact.html", text: "Contact" }
     ],
 
     // Social Links
@@ -168,6 +169,13 @@ const portfolioData = {
             ]
         }
     ],
+
+    // Contact Information
+    contact: {
+        message: "Feel free to reach out for collaborations or just a friendly chat.",
+        email: "veerender.rathod@example.com",
+        location: "Bengaluru, Karnataka, IN"
+    },
 
     // Projects
     projects: [

@@ -41,11 +41,11 @@ function populateHeader() {
     if (navLinks) {
         // Modified navigation for projects page
         const projectsNav = [
-            { href: "index.html", text: "Home" },
             { href: "index.html#about", text: "About" },
             { href: "index.html#timeline", text: "Experience" },
             { href: "skills.html", text: "Skills" },
-            { href: "projects.html", text: "Projects", active: true }
+            { href: "projects.html", text: "Projects", active: true },
+            { href: "contact.html", text: "Contact" }
         ];
         
         projectsNav.forEach(link => {
