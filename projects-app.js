@@ -44,7 +44,7 @@ function populateHeader() {
             { href: "index.html", text: "Home" },
             { href: "index.html#about", text: "About" },
             { href: "index.html#timeline", text: "Experience" },
-            { href: "index.html#skills", text: "Skills" },
+            { href: "skills.html", text: "Skills" },
             { href: "projects.html", text: "Projects", active: true }
         ];
         
