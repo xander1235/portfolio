@@ -681,6 +681,14 @@ body {
     }
 }
 
+@media (max-width: 390px) {
+    .container {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
 .btn {
     display: inline-block;
     padding: 0.8rem 2rem;
