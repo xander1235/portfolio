@@ -20,8 +20,8 @@ const portfolioData = {
         { href: "index.html#timeline", text: "Experience" },
         { href: "skills.html", text: "Skills" },
         { href: "projects.html", text: "Projects" },
-        { href: "contact.html", text: "Contact" },
-        { href: "blogs.html", text: "Blogs" }
+        { href: "blogs.html", text: "Blogs" },
+        { href: "contact.html", text: "Contact" }
     ],
 
     // Blog Posts

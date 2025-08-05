@@ -33,8 +33,8 @@ function populateHeader() {
             { href: 'index.html#timeline', text: 'Experience' },
             { href: 'skills.html', text: 'Skills', active: true },
             { href: 'projects.html', text: 'Projects' },
-            { href: 'contact.html', text: 'Contact' },
-            { href: 'blogs.html', text: 'Blogs' }
+            { href: 'blogs.html', text: 'Blogs' },
+            { href: 'contact.html', text: 'Contact' }
         ];
 
         skillsNav.forEach(link => {
