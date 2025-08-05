@@ -6,9 +6,14 @@
 
 .page-title {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--text-color);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, var(--primary-color), #6e45e2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
 }
 
 .blog-filters {
@@ -43,15 +48,15 @@
 }
 
 .blog-card {
-    background: var(--bg-color);
+    background: var(--card-bg);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     cursor: pointer;
-    border: 1px solid rgba(110, 69, 226, 0.1);
-    height: 350px; /* Increased height */
+    border: 1px solid rgba(110, 69, 226, 0.15);
+    height: 350px;
     display: flex;
     flex-direction: column;
 }
@@ -75,22 +80,30 @@
 
 .blog-card:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(110, 69, 226, 0.2);
+    box-shadow: 0 25px 50px rgba(110, 69, 226, 0.25);
     border-color: rgba(110, 69, 226, 0.3);
 }
 
 .blog-card-content {
-    padding: 20px;
+    padding: 2rem;
     flex: 1;
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .blog-card-title {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
     color: var(--text-color);
     transition: color 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    flex: 0 0 auto;
 }
 
 .blog-card:hover .blog-card-title {
@@ -98,29 +111,38 @@
 }
 
 .blog-card-description {
-    font-size: 1rem;
     color: var(--light-text);
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* Limit to 4 lines */
-    line-clamp: 4; /* Standard property */
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     flex: 1;
 }
 
 .blog-card-link {
     display: inline-block;
-    color: var(--accent-color);
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
-    margin-top: auto; /* Push to bottom */
-    align-self: flex-start; /* Align to left */
+    transition: all 0.3s ease;
+    margin-top: auto;
+    align-self: flex-start;
+    position: relative;
+    overflow: hidden;
+    padding: 0.5rem 1.5rem;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+                linear-gradient(135deg, var(--primary-color), #6e45e2) border-box;
+    border-radius: 30px;
 }
 
 .blog-card-link:hover {
-    color: var(--accent-hover);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(110, 69, 226, 0.3);
+    background: linear-gradient(135deg, var(--primary-color), #6e45e2);
 }
