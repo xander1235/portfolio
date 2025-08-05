@@ -39,13 +39,15 @@ function populateHeader() {
     // Populate navigation links
     const navLinks = document.querySelector('.nav-links');
     if (navLinks) {
+        navLinks.innerHTML = ''; // Clear existing links to prevent duplication
         // Modified navigation for projects page
         const projectsNav = [
             { href: "index.html#about", text: "About" },
             { href: "index.html#timeline", text: "Experience" },
             { href: "skills.html", text: "Skills" },
             { href: "projects.html", text: "Projects", active: true },
-            { href: "contact.html", text: "Contact" }
+            { href: "contact.html", text: "Contact" },
+            { href: "blogs.html", text: "Blogs" }
         ];
         
         projectsNav.forEach(link => {

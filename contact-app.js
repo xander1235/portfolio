@@ -28,12 +28,14 @@ function populateHeader() {
 
     const navLinks = document.querySelector('.nav-links');
     if (navLinks) {
+        navLinks.innerHTML = ''; // Clear existing links to prevent duplication
         const contactNav = [
             { href: 'index.html#about', text: 'About' },
             { href: 'index.html#timeline', text: 'Experience' },
             { href: 'skills.html', text: 'Skills' },
             { href: 'projects.html', text: 'Projects' },
-            { href: 'contact.html', text: 'Contact', active: true }
+            { href: 'contact.html', text: 'Contact', active: true },
+            { href: 'blogs.html', text: 'Blogs' }
         ];
 
         contactNav.forEach(link => {

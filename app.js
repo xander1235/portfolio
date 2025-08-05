@@ -39,6 +39,7 @@ function populateHeader() {
     // Populate navigation links
     const navLinks = document.querySelector('.nav-links');
     if (navLinks) {
+        navLinks.innerHTML = ''; // Clear existing links to prevent duplication
         portfolioData.navigation.forEach(link => {
             const navLink = document.createElement('a');
             navLink.href = link.href;

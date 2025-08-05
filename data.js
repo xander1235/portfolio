@@ -16,11 +16,46 @@ const portfolioData = {
 
     // Navigation Links
     navigation: [
-        { href: "#about", text: "About" },
-        { href: "#timeline", text: "Experience" },
+        { href: "index.html#about", text: "About" },
+        { href: "index.html#timeline", text: "Experience" },
         { href: "skills.html", text: "Skills" },
         { href: "projects.html", text: "Projects" },
-        { href: "contact.html", text: "Contact" }
+        { href: "contact.html", text: "Contact" },
+        { href: "blogs.html", text: "Blogs" }
+    ],
+
+    // Blog Posts
+    blogs: [
+        {
+            title: "Cut 80% Cloud Costs with Pandas & Polars Memory Optimization",
+            description: "As a engineer, I’ve always believed that efficiency isn’t just about faster code — it’s about smarter resource usage. When our Flink jobs and analytics pipelines started to buckle under the weight of ever-growing datasets, memory consumption became a pressing concern. The cloud bills were climbing, and our data processing services were hitting their limits.",
+            url: "https://medium.com/@rathodWrites/cut-80-cloud-costs-with-pandas-polars-memory-optimization-d9893be92768?source=friends_link&sk=ed63812074cf27ca8f977fef320235c2",
+            category: "Medium"
+        },
+        {
+            title: "The $500K IDE Extension Scam: How a Fake Extension Tricked an Experienced Developer",
+            description: "An experienced developer lost $500K to a malicious IDE extension. Learn how the attack worked, how to spot fake extensions, and the security steps every developer should take to stay safe.",
+            url: "https://levelup.gitconnected.com/how-a-fake-ide-extension-stole-500k-from-an-experienced-developer-2912518c57b8?source=friends_link&sk=b5cddbe4651d264d754c9901a69a8851",
+            category: "Medium"
+        },
+        {
+            title: "Mastering Go for Backend Development: A Comprehensive Guide",
+            description: "In the world of backend development, Go (or Golang) has emerged as a powerful language that combines the performance of compiled languages with the simplicity of modern scripting languages. Developed at Google, Go has gained immense popularity for building scalable and efficient backend services. In this comprehensive guide, we’ll explore Go’s core concepts, from basic syntax to advanced concurrency patterns, equipping you with the knowledge to build robust backend services.",
+            url: "https://levelup.gitconnected.com/mastering-go-for-backend-development-a-comprehensive-guide-3971c4a6de66?source=friends_link&sk=6230b28030a8785e5800e4b3f1d2fd32",
+            category: "Medium"
+        },
+        {
+            title: "Tired of Repetitive AI Prompts? Slash Commands Changed Everything",
+            description: "If you’ve ever found yourself typing “explain this in simple words” for the hundredth time — you’re not alone. I was there too. Until a tiny trick completely changed the way I interact with AI tools — and saved me hours every week.",
+            url: "https://levelup.gitconnected.com/tired-of-repetitive-ai-prompts-slash-commands-changed-everything-df49350d8ce8?source=friends_link&sk=41470c69805d6313e4590ca037cd5736",
+            category: "Medium"
+        },
+        {
+            title: "Building Production-Ready APIs with Gorest: The Ultimate Go HTTP Client Library",
+            description: "When I first started out, I was working with Java and Spring Boot — frameworks that made backend development feel pretty straightforward. Then Go started getting a lot of attention, and I was curious about all the talk around its performance and efficiency. So I gave it a shot and began building microservices with Gin.",
+            url: "https://levelup.gitconnected.com/building-production-ready-apis-with-gorest-the-ultimate-go-http-client-library-2898be48067c?source=friends_link&sk=764e26f0c9c057a67343a1a743fed61e",
+            category: "Medium"
+        }
     ],
 
     // Social Links
