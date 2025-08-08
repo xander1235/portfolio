@@ -238,6 +238,35 @@ body:hover .mouse-glow {
     color: var(--primary-color);
 }
 
+.project-type {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    border: 1px solid transparent;
+}
+
+.project-type.is-github {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.35);
+}
+
+.project-type.is-company {
+    background: rgba(129, 140, 248, 0.15);
+    color: #818cf8;
+    border-color: rgba(129, 140, 248, 0.35);
+}
+
+.project-type.is-freelance {
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.35);
+}
+
 .project-description {
     color: var(--light-text);
     line-height: 1.6;
@@ -409,6 +438,7 @@ body.dark .project-stats {
         margin-bottom: 0.75rem;
         display: -webkit-box;
         -webkit-line-clamp: 3;
+        line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -468,6 +498,7 @@ body.dark .project-stats {
     .project-description {
         font-size: 0.875rem;
         -webkit-line-clamp: 4;
+        line-clamp: 4;
     }
 }
 
@@ -493,6 +524,7 @@ body.dark .project-stats {
     .project-description {
         font-size: 0.75rem;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
     
     .tech-tag {

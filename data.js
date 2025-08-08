@@ -221,24 +221,28 @@ const portfolioData = {
             title: "Scalable Event Processing Service",
             description: "Built a high-throughput GoLang event processing service handling 100K requests per minute with 99% reduced data loss, integrating with Kafka and implementing retry mechanisms with exponential backoff.",
             technologies: ["GoLang", "Kafka", "Microservices", "API Design"],
+            type: "company",
             github: "#"
         },
         {
             title: "Real-Time Data Processing Pipeline",
             description: "Architected a real-time Kafka stream processing pipeline with Apache Iceberg, handling 1M+ events/sec at sub-second latency, leveraging fault-tolerant designs and transformation logic.",
             technologies: ["Apache Flink", "Kafka", "Apache Iceberg", "Data Transformation"],
+            type: "company",
             github: "#"
         },
         {
             title: "Online Gaming Platform",
             description: "Led development of a gaming service with League, Prediction, Trading, and Quiz Match formats. Introduced a live leaderboard that boosted DAU/MAU ratio from 5% to 50%.",
             technologies: ["GoLang", "Java", "Microservices", "PostgreSQL"],
+            type: "company",
             github: "#"
         },
         {
             title: "Multi-Tenant Auth & SSO Solution",
             description: "Created a scalable User Auth and SSO solution using JWT authentication, supporting concurrent logins across devices and multi-organization sign-ups at 50K requests per minute.",
             technologies: ["Java", "SpringBoot", "JWT", "Security"],
+            type: "company",
             github: "#"
         }
     ],

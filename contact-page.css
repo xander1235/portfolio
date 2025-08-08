@@ -1,0 +1,247 @@
+/* contact-page.css - Contact Page specific styles */
+
+/* Layout */
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+.contact-card,
+.contact-form {
+  background: var(--bg-color);
+  border: 1px solid rgba(110, 69, 226, 0.12);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+body.dark .contact-card,
+body.dark .contact-form {
+  background: var(--dark-section-bg);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-card h3 {
+  margin: 0 0 0.75rem 0;
+}
+
+.contact-card p {
+  color: var(--light-text);
+}
+
+/* Contact methods */
+.contact-methods {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px dashed rgba(110, 69, 226, 0.25);
+  border-radius: 12px;
+}
+
+.contact-method .left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.contact-method i {
+  color: var(--primary-color);
+}
+
+.contact-method a,
+.contact-method a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.contact-method a:hover,
+.contact-method a:focus {
+  color: #fff;
+  text-decoration: none;
+}
+
+.copy-btn {
+  padding: 0.35rem 0.6rem;
+  background: transparent;
+  border: 1px solid rgba(110, 69, 226, 0.35);
+  border-radius: 8px;
+  color: var(--text-color);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(110, 69, 226, 0.1);
+}
+
+/* Availability */
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0; /* Add vertical gap before and after */
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+/* Inline socials */
+.social-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem; /* Add top gap from contact methods */
+}
+
+.social-inline a {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(110, 69, 226, 0.25);
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.social-inline a:hover {
+  color: #fff;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Form */
+.contact-form h3 {
+  margin: 0 0 1rem 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-field {
+  position: relative;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 0.9rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(110, 69, 226, 0.25);
+  background: transparent;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Vertical spacing between inputs */
+.contact-form .form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(110, 69, 226, 0.15);
+}
+
+/* Floating labels */
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  opacity: 0;
+}
+
+.form-field label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  padding: 0 6px;
+  color: var(--light-text);
+  pointer-events: none;
+  transition: all 0.15s ease;
+  background: var(--bg-color);
+}
+
+body.dark .form-field label {
+  background: var(--dark-section-bg);
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label,
+.form-field textarea:focus + label,
+.form-field textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 0.75rem;
+  color: var(--primary-color);
+}
+
+/* Actions */
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: rgba(17, 17, 17, 0.9);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}

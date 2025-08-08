@@ -62,33 +62,17 @@ function populateHeader() {
 
 // Enhanced project data with categories
 function getEnhancedProjects() {
-    // Add categories and additional details to projects
+    // Normalize projects: attach id, image, and ensure a type (github/company/freelance)
     const enhancedProjects = portfolioData.projects.map((project, index) => {
-        // Determine category based on technologies
-        let category = 'web'; // default
-        const techLower = project.technologies.map(t => t.toLowerCase()).join(' ');
-        
-        if (techLower.includes('spark') || techLower.includes('airflow') || techLower.includes('etl')) {
-            category = 'data';
-        } else if (techLower.includes('tensorflow') || techLower.includes('ml') || techLower.includes('ai')) {
-            category = 'ml';
-        } else if (techLower.includes('docker') || techLower.includes('kubernetes') || techLower.includes('aws')) {
-            category = 'cloud';
-        }
-        
+        const type = project.type || 'github';
         return {
             ...project,
             id: `project-${index}`,
-            category: category,
-            image: `project-${index + 1}.jpg`, // Placeholder image
-            stats: {
-                stars: Math.floor(Math.random() * 200) + 50,
-                forks: Math.floor(Math.random() * 50) + 10,
-                contributors: Math.floor(Math.random() * 10) + 1
-            }
+            type,
+            image: `project-${index + 1}.jpg` // Placeholder image
         };
     });
-    
+
     return enhancedProjects;
 }
 
@@ -102,7 +86,7 @@ function populateProjectsShowcase() {
     enhancedProjects.forEach((project, index) => {
         const projectItem = document.createElement('div');
         projectItem.className = 'project-item show';
-        projectItem.setAttribute('data-category', project.category);
+        projectItem.setAttribute('data-type', project.type);
         projectItem.setAttribute('data-aos', 'fade-up');
         projectItem.setAttribute('data-aos-delay', index * 100);
         
@@ -111,48 +95,57 @@ function populateProjectsShowcase() {
             `<span class="tech-tag">${tech}</span>`
         ).join('');
         
-        // Create project links
+        // Create project links based on project type
         const overlayLinks = [];
-        if (project.github) {
-            overlayLinks.push(`
-                <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="View Code">
-                    <i class="fab fa-github"></i>
-                </a>
-            `);
+        const isValid = (url) => !!url && url !== '#';
+        if (project.type === 'github') {
+            if (isValid(project.github)) {
+                overlayLinks.push(`
+                    <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="View Code">
+                        <i class="fab fa-github"></i>
+                    </a>
+                `);
+            }
+            if (isValid(project.demo)) {
+                overlayLinks.push(`
+                    <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="Live Demo">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                `);
+            }
+        } else if (project.type === 'company' || project.type === 'freelance') {
+            if (isValid(project.reference)) {
+                overlayLinks.push(`
+                    <a href="${project.reference}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="Reference / Case Study">
+                        <i class="fas fa-link"></i>
+                    </a>
+                `);
+            }
         }
-        if (project.demo) {
-            overlayLinks.push(`
-                <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="Live Demo">
-                    <i class="fas fa-external-link-alt"></i>
-                </a>
-            `);
-        }
+
+        const overlayHTML = overlayLinks.length
+            ? `<div class="project-overlay">${overlayLinks.join('')}</div>`
+            : '';
+
+        // Project type badge
+        const typeLabel = project.type === 'company' ? 'Company Project'
+                        : project.type === 'freelance' ? 'Freelance Project'
+                        : 'GitHub Project';
+        const typeClass = project.type === 'company' ? 'is-company'
+                        : project.type === 'freelance' ? 'is-freelance'
+                        : 'is-github';
+        const typeBadge = `<span class="project-type ${typeClass}">${typeLabel}</span>`;
         
         projectItem.innerHTML = `
             <div class="project-image">
-                <div class="project-overlay">
-                    ${overlayLinks.join('')}
-                </div>
+                ${overlayHTML}
             </div>
             <div class="project-content">
                 <h3>${project.title}</h3>
+                ${typeBadge}
                 <p class="project-description">${project.description}</p>
                 <div class="project-tech">
                     ${techTags}
-                </div>
-                <div class="project-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-star"></i>
-                        <span>${project.stats.stars}</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-code-branch"></i>
-                        <span>${project.stats.forks}</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <span>${project.stats.contributors}</span>
-                    </div>
                 </div>
             </div>
         `;
@@ -176,9 +169,9 @@ function initializeFilters() {
             const filter = btn.getAttribute('data-filter');
             
             projectItems.forEach(item => {
-                const category = item.getAttribute('data-category');
+                const type = item.getAttribute('data-type');
                 
-                if (filter === 'all' || category === filter) {
+                if (filter === 'all' || type === filter) {
                     item.classList.remove('hide');
                     item.classList.add('show');
                 } else {
@@ -199,6 +192,7 @@ function initializeFilters() {
 function populateFooter() {
     const socialLinks = document.querySelector('footer .social-links');
     if (socialLinks) {
+        socialLinks.innerHTML = '';
         portfolioData.social.forEach(social => {
             const link = document.createElement('a');
             link.href = social.url;
