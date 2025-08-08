@@ -132,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize skill bars
     document.querySelectorAll('.skill').forEach(skill => {
+        // If markup already exists (from skills-app.js), don't recreate
+        if (skill.querySelector('.skill-bar')) return;
         const skillText = skill.textContent;
         const skillLevel = skill.getAttribute('data-level');
         skill.innerHTML = `
