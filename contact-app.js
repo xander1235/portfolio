@@ -56,9 +56,9 @@ function populateContactInfo() {
     const { message, email, location } = portfolioData.contact;
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
 
-    // Build enhanced layout: Info card + Form
+    // Build contact layout: Info card only
     container.innerHTML = `
-      <div class="contact-wrapper">
+      <div class="contact-wrapper one-col">
         <section class="contact-card" data-aos="fade-up">
           <h3>Let’s build something great</h3>
           <p>${message}</p>
@@ -98,34 +98,6 @@ function populateContactInfo() {
               </a>
             `).join('')}
           </div>
-        </section>
-
-        <section class="contact-form" data-aos="fade-up" data-aos-delay="100">
-          <h3>Send a message</h3>
-          <form id="contactForm" novalidate>
-            <div class="form-row">
-              <div class="form-field">
-                <input id="name" name="name" type="text" placeholder="Your name" required />
-                <label for="name">Your name</label>
-              </div>
-              <div class="form-field">
-                <input id="emailInput" name="email" type="email" placeholder="Your email" required />
-                <label for="emailInput">Your email</label>
-              </div>
-            </div>
-            <div class="form-field">
-              <input id="subject" name="subject" type="text" placeholder="Subject" />
-              <label for="subject">Subject</label>
-            </div>
-            <div class="form-field">
-              <textarea id="messageInput" name="message" placeholder="Your message" required></textarea>
-              <label for="messageInput">Your message</label>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>&nbsp;Send</button>
-              <button type="button" id="copyEmailBtn" class="btn btn-outline"><i class="fas fa-copy"></i>&nbsp;Copy email</button>
-            </div>
-          </form>
         </section>
       </div>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -186,9 +158,10 @@ function populateContactInfo() {
         }
 
         const body = `Name: ${name}\nEmail: ${fromEmail}\n\n${bodyText}`;
-        const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailto;
-        showToast('Opening your email client...');
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        // Open Gmail compose in a new tab
+        window.open(gmailUrl, '_blank', 'noopener');
+        showToast('Opening Gmail compose...');
       });
     }
 }

@@ -7,6 +7,11 @@
   gap: 2rem;
 }
 
+/* Force single column when explicitly requested */
+.contact-wrapper.one-col {
+  grid-template-columns: 1fr;
+}
+
 @media (max-width: 900px) {
   .contact-wrapper {
     grid-template-columns: 1fr;
@@ -139,6 +144,11 @@ body.dark .contact-form {
 /* Form */
 .contact-form h3 {
   margin: 0 0 1rem 0;
+}
+
+/* Ensure any legacy form is hidden */
+.contact-form {
+  display: none !important;
 }
 
 .form-row {
