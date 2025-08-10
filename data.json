@@ -1,0 +1,75 @@
+{
+    "personalInfo": {
+      "name": "Veerender Rathod",
+      "email": "rathodveerender25@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/rathod-veerender-97371a11b/",
+      "github": "https://github.com/xander1235",
+      "leetcode": "https://leetcode.com/rathod1235"
+    },
+    "summary": "Experienced Software Engineer with 5+ years of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.",
+    "technicalSkills": {
+      "proficient": ["GoLang", "Gin Framework", "Java", "MySQL", "Scylla", "SpringBoot", "Redis", "Git", "Docker", "Microservices", "Kafka", "DynamoDB", "Apache Flink", "MCP", "Windsurf"],
+      "familiar": ["Python", "AWS", "Kubernetes", "Jmeter", "C/C++", "Newrelic"]
+    },
+    "experience": [
+      {
+        "company": "Pixis",
+        "position": "Senior Software Engineer",
+        "location": "Bangalore",
+        "duration": "Sep 2023 – Present",
+        "responsibilities": [
+          "Develop a scalable Golang event processing service handling 100K rpm with 99% reduced data loss, integrating Kafka for data ingestion and secure API transfers. Retry mechanisms with exponential backoff and improved system resilience and reliability, integrating Dead Letter queues to reduce retry failures by 40%.",
+          "Built a Golang network interface to standardize request/response marshaling, introducing a plugin-based architecture to streamline error or response handling and boost team efficiency by 20%.",
+          "Engineered a Flink job PostgreSQL CDC stream and marketing platform data into an Iceberg Data Lakehouse, optimizing data query times by 15% through advanced transformation techniques.",
+          "Designed a Flink job registry service for version control and lifecycle management, reducing deployment time by 25% and improving job traceability by 40% through Decodable and prefect integration.",
+          "Architected a real-time Kafka stream processing pipeline with Apache Iceberg, handling 1M+ events/sec at sub-second latency, leveraging fault-tolerant designs and transformation logic to boost throughput by 25%."
+        ]
+      },
+      {
+        "company": "Threedots",
+        "position": "Software Engineer",
+        "location": "Bangalore",
+        "duration": "Mar 2022 – Aug 2023",
+        "responsibilities": [
+          "Led the development of an online gaming service in Java offering League, Prediction, Trading, and Quiz Match formats. Introduced a live leaderboard that boosted DAU/MAU ratio from 5% to 50%. Transitioned the service to Golang, achieving a 2x reduction in Heap storage/CPU usage, a 2x throughput improvement, and a 3x latency decrease.",
+          "Managed and enhanced a virtual currency wallet for seamless gaming transactions, enabling users to add currency, play games, and convert virtual currency to real money, processing 20K+ transactions daily.",
+          "Engineered a Flink job to migrate PostgreSQL CDC data to Kafka, applying transformation logic to standardize and enrich data streams, improving downstream data accuracy by 30%."
+        ]
+      },
+      {
+        "company": "Ola Electric",
+        "position": "Software Engineer",
+        "location": "Bangalore",
+        "duration": "July 2020 – Feb 2022",
+        "responsibilities": [
+          "Created a scalable User Auth and SSO solution using JWT authentication, supporting concurrent logins across devices and multi-organization sign-ups. Achieved robust authentication at 50K rpm with reinforced validation mechanisms, reducing unauthorized access attempts by 25%.",
+          "Developed a multi-organization user service platform that supports concurrent multi-tenancy and owner-employee features, reducing onboarding time by 30% while efficiently handling 80K rpm.",
+          "Designed a secure multi-tenant wallet platform with owner-employee features, processing 50K rpm. Optimized transactional security and reduced adjustment request turnaround by 20%.",
+          "Implemented a Flink job integrating Kafka, transforming data from proto to JSON and Java code for downstream services, improving processing speed by 25% and enabling real-time analytics."
+        ]
+      },
+      {
+        "company": "Ola Electric",
+        "position": "Software Intern",
+        "location": "Bangalore",
+        "duration": "Jan 2020 – Jun 2020",
+        "responsibilities": [
+          "Contributed to multi-tenant user management and tags module for the tenant.",
+          "Made a contribution to a flink job to ingest events from Kafka and onboard user wallets to the wallet service asynchronously.",
+          "Had a hand in payment service for various payment integrations with different payment platforms."
+        ]
+      }
+    ],
+    "education": {
+      "institution": "Indian institute of information Technology Allahabad",
+      "degree": "Bachelor of Technology and Master of Technology in Information Technology (Dual Degree)",
+      "duration": "Aug 2015 – July 2020",
+      "location": "Allahabad"
+    },
+    "achievements": [
+      "Qualified GATE 2019.",
+      "The Spot Light Award, Ola Electric, Bangalore.",
+      "The Warthog of Backend, Threedots, Bangalore.",
+      "Pixis Trailblazers, Pixis, Bangalore."
+    ]
+  }

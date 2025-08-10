@@ -6,12 +6,11 @@ const portfolioData = {
         name: "Veerender Rathod",
         title: "Senior Software Engineer",
         tagline: "Building Scalable Systems & Microservices",
-        description: "More than 4.6+ years of experience using Java, SpringBoot, GoLang, System Design, Data structure and Algorithms. Proficient in scalable Systems, Microservices, RestFul APIs, Distributed Systems. Skilled in end-to-end project planning, scope management, risk analysis, and quality control.",
+        description: "Experienced Software Engineer with 5+ years of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.",
         profileImage: "images/my_pic.jpg", // Add your profile image path here
         resume: "resume.pdf", // Add your resume path here
         email: "rathodveerender25@gmail.com",
-        phone: "+91-9129382373",
-        location: "Bengaluru, Karnataka, IN"
+        location: "Bangalore"
     },
 
     // Navigation Links
@@ -60,8 +59,8 @@ const portfolioData = {
 
     // Social Links
     social: [
-        { icon: "fab fa-linkedin", url: "https://linkedin.com/in/rathod-veerender", label: "LinkedIn" },
-        { icon: "fab fa-github", url: "https://github.com/Xander", label: "GitHub" },
+        { icon: "fab fa-linkedin", url: "https://www.linkedin.com/in/rathod-veerender-97371a11b/", label: "LinkedIn" },
+        { icon: "fab fa-github", url: "https://github.com/xander1235", label: "GitHub" },
         { icon: "fas fa-code", url: "https://leetcode.com/rathod1235", label: "LeetCode" },
         { icon: "fas fa-envelope", url: "mailto:rathodveerender25@gmail.com", label: "Email" }
     ],
@@ -122,87 +121,119 @@ const portfolioData = {
     about: {
         title: "About Me",
         content: `
-            <p>I'm a Senior Software Engineer with 4.6+ years of experience in building scalable, distributed systems and microservices. 
-            My expertise spans from designing robust backend systems to implementing high-throughput event processing services.</p>
-            
-            <p>I specialize in GoLang, Java, SpringBoot, and stream processing technologies like Apache Kafka and Apache Flink. 
-            My passion lies in solving complex technical challenges and creating solutions that make a real impact.</p>
-            
-            <p>When I'm not coding, you'll find me exploring new technologies, solving algorithmic challenges on LeetCode, 
-            and continuously expanding my knowledge in system design and architecture.</p>
+            <p>Experienced Software Engineer with 5+ years of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.</p>
         `
     },
 
     // Timeline/Experience
     timeline: [
         {
-            year: "2023-Present",
+            year: "Sep 2023 – Present",
             title: "Senior Software Engineer",
             company: "Pixis",
-            description: "Developed a scalable GoLang event processing service handling 100K rpm with 99% reduced data loss, integrating Kafka for data ingestion and secure API transfers. Built real-time Kafka stream processing pipelines with Apache Iceberg, handling 1M+ events/sec at sub-second latency.",
-            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"]
+            description: "Developed a scalable Golang event processing service handling 100K rpm with retries/DLQ (99% reduced data loss). Built Flink CDC to Iceberg and a Flink job registry for versioned lifecycle management; architected real-time Kafka → Iceberg pipelines at sub-second latency.",
+            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"],
+            companySummary: "Built and scaled real-time data infrastructure and event pipelines powering marketing intelligence and analytics, with reliability and observability at scale.",
+            achievements: [
+                "Reduced data loss by ~99% via resilient retry + DLQ patterns in event processing",
+                "Shipped Flink CDC → Iceberg pipelines improving query performance and freshness",
+                "Introduced a Flink job registry to standardize versioning and lifecycle management",
+                "Delivered real-time Kafka → Iceberg pipeline at sub‑second latency"
+            ],
+            learnings: [
+                "Designing fault‑tolerant, idempotent, and backpressure‑aware stream processors",
+                "Schema evolution and table formats (Iceberg) for analytics at scale",
+                "Operational excellence: monitoring, alerting, and on‑call for high‑throughput systems"
+            ]
         },
         {
-            year: "2022-2023",
+            year: "Mar 2022 – Aug 2023",
             title: "Software Engineer",
             company: "Threedots",
-            description: "Led the development of an online gaming service in Java, later transitioning to GoLang, achieving 2x reduction in Heap storage/CPU usage, 2x throughput improvement, and 3x latency decrease. Managed a virtual currency wallet processing 20K+ transactions daily.",
-            technologies: ["GoLang", "Java", "Kafka", "PostgreSQL", "Microservices"]
+            description: "Led online gaming platform (League, Prediction, Trading, Quiz). Introduced live leaderboard (DAU/MAU 5% → 50%). Migrated Java → Golang (2× throughput, 3× lower latency, 2× lower CPU/heap). Managed virtual currency wallet (20K+ tx/day). Built Flink PostgreSQL CDC → Kafka with transforms.",
+            technologies: ["GoLang", "Java", "Kafka", "PostgreSQL", "Microservices"],
+            companySummary: "Built user‑facing gaming experiences and the real‑time backend that powers leaderboards, wallets, and gameplay flows.",
+            achievements: [
+                "Boosted DAU/MAU from ~5% → ~50% with live leaderboard & real‑time updates",
+                "2× throughput, 3× latency reduction, 2× lower CPU/heap by moving core services to Go",
+                "Operated a virtual currency wallet processing 20K+ tx/day with strong consistency",
+                "Standardized CDC → Kafka ingestion with transformation for downstream consumers"
+            ],
+            learnings: [
+                "Real‑time system design for gaming workloads (low‑latency, high‑fan‑out)",
+                "Concurrency & profiling in Go for throughput and latency wins",
+                "Consistency models and idempotency for wallet & financial workflows"
+            ]
         },
         {
-            year: "2020-2022",
+            year: "July 2020 – Feb 2022",
             title: "Software Engineer",
             company: "Ola Electric",
-            description: "Created a scalable User Auth and SSO solution using JWT authentication at 50K rpm. Developed a multi-organization user service platform and secure multi-tenant wallet platform handling 80K rpm.",
-            technologies: ["Java", "SpringBoot", "Kafka", "Apache Flink", "JWT"]
+            description: "Created scalable JWT-based Auth & SSO (50–80K rpm). Built multi-organization user platform and secure multi-tenant wallet; implemented Flink jobs integrating Kafka, transforming proto → JSON/Java for downstream analytics.",
+            technologies: ["Java", "SpringBoot", "Kafka", "Apache Flink", "JWT"],
+            companySummary: "Worked across identity, access, and fintech workflows to enable secure, multi‑tenant experiences at scale.",
+            achievements: [
+                "Delivered robust JWT Auth & SSO handling 50–80K rpm",
+                "Launched multi‑organization user platform and secure multi‑tenant wallet",
+                "Built Flink ingestion and transform pipelines improving processing speed by ~25%"
+            ],
+            learnings: [
+                "AuthN/AuthZ patterns (JWT, SSO) and session management at scale",
+                "Designing multi‑tenant services with partitioning and isolation",
+                "Streaming transforms and contracts between producers/consumers"
+            ]
         },
         {
-            year: "2020",
+            year: "Jan 2020 – Jun 2020",
             title: "Software Intern",
             company: "Ola Electric",
-            description: "Contributed to multi-tenant user management and tags module. Worked on a Flink job to ingest events from Kafka and onboard user wallets asynchronously.",
-            technologies: ["Java", "Kafka", "Payment Integration"]
+            description: "Contributed to multi-tenant user management & tags; built Flink Kafka ingestion to onboard user wallets; worked on payment integrations.",
+            technologies: ["Java", "Kafka", "Payment Integration"],
+            companySummary: "Hands‑on exposure to microservices and data pipelines through contributions to user, wallet onboarding, and payments flows.",
+            achievements: [
+                "Shipped Kafka ingestion to onboard wallets asynchronously",
+                "Contributed to user management & tags for tenancy",
+                "Helped integrate multiple payment providers"
+            ],
+            learnings: [
+                "Event‑driven design and asynchronous onboarding patterns",
+                "Working with Kafka/Flink and schema contracts",
+                "Integration best practices with external payment services"
+            ]
         }
     ],
 
-    // Skills
+    // Skills (synced from data.json)
     skills: [
         {
-            category: "Programming Languages",
+            category: "Proficient",
             items: [
-                { name: "GoLang", level: 95 },
+                { name: "GoLang", level: 92 },
+                { name: "Gin Framework", level: 90 },
                 { name: "Java", level: 90 },
-                { name: "Python", level: 75 },
-                { name: "C/C++", level: 65 }
-            ]
-        },
-        {
-            category: "Frameworks & Technologies",
-            items: [
-                { name: "SpringBoot", level: 90 },
-                { name: "Gin Framework", level: 88 },
-                { name: "Microservices", level: 92 },
-                { name: "Apache Flink", level: 85 }
-            ]
-        },
-        {
-            category: "Databases & Messaging",
-            items: [
                 { name: "MySQL", level: 88 },
-                { name: "Kafka", level: 90 },
+                { name: "Scylla", level: 80 },
+                { name: "SpringBoot", level: 90 },
                 { name: "Redis", level: 85 },
+                { name: "Git", level: 90 },
+                { name: "Docker", level: 85 },
+                { name: "Microservices", level: 92 },
+                { name: "Kafka", level: 90 },
                 { name: "DynamoDB", level: 80 },
-                { name: "Scylla", level: 78 }
+                { name: "Apache Flink", level: 85 },
+                { name: "MCP", level: 75 },
+                { name: "Windsurf", level: 75 }
             ]
         },
         {
-            category: "DevOps & Tools",
+            category: "Familiar",
             items: [
-                { name: "Docker", level: 85 },
-                { name: "Git", level: 90 },
+                { name: "Python", level: 75 },
                 { name: "AWS", level: 75 },
                 { name: "Kubernetes", level: 70 },
-                { name: "Jmeter", level: 65 }
+                { name: "Jmeter", level: 65 },
+                { name: "C/C++", level: 65 },
+                { name: "Newrelic", level: 60 }
             ]
         }
     ],
@@ -211,39 +242,122 @@ const portfolioData = {
     contact: {
         message: "Feel free to reach out for collaborations or just a friendly chat.",
         email: "rathodveerender25@gmail.com",
-        phone: "+91-9129382373",
-        location: "Bengaluru, Karnataka, IN"
+        location: "Bangalore"
     },
 
-    // Projects (based on work experience)
+    // Projects (each responsibility from experience is a project)
     projects: [
+        // Pixis (5)
         {
-            title: "Scalable Event Processing Service",
-            description: "Built a high-throughput GoLang event processing service handling 100K requests per minute with 99% reduced data loss, integrating with Kafka and implementing retry mechanisms with exponential backoff.",
-            technologies: ["GoLang", "Kafka", "Microservices", "API Design"],
-            type: "company",
-            github: "#"
+            title: "Golang Event Processing Service",
+            description: "Develop a scalable Golang event processing service handling 100K rpm with 99% reduced data loss, integrating Kafka for data ingestion and secure API transfers. Retry mechanisms with exponential backoff and improved system resilience and reliability, integrating Dead Letter queues to reduce retry failures by 40%.",
+            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"],
+            company: "Pixis",
+            type: "company"
         },
         {
-            title: "Real-Time Data Processing Pipeline",
-            description: "Architected a real-time Kafka stream processing pipeline with Apache Iceberg, handling 1M+ events/sec at sub-second latency, leveraging fault-tolerant designs and transformation logic.",
-            technologies: ["Apache Flink", "Kafka", "Apache Iceberg", "Data Transformation"],
-            type: "company",
-            github: "#"
+            title: "Golang Network Interface",
+            description: "Built a Golang network interface to standardize request/response marshaling, introducing a plugin-based architecture to streamline error or response handling and boost team efficiency by 20%.",
+            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"],
+            company: "Pixis",
+            type: "company"
         },
         {
-            title: "Online Gaming Platform",
-            description: "Led development of a gaming service with League, Prediction, Trading, and Quiz Match formats. Introduced a live leaderboard that boosted DAU/MAU ratio from 5% to 50%.",
-            technologies: ["GoLang", "Java", "Microservices", "PostgreSQL"],
-            type: "company",
-            github: "#"
+            title: "Flink PostgreSQL CDC → Iceberg Data Lakehouse",
+            description: "Engineered a Flink job PostgreSQL CDC stream and marketing platform data into an Iceberg Data Lakehouse, optimizing data query times by 15% through advanced transformation techniques.",
+            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"],
+            company: "Pixis",
+            type: "company"
         },
         {
-            title: "Multi-Tenant Auth & SSO Solution",
-            description: "Created a scalable User Auth and SSO solution using JWT authentication, supporting concurrent logins across devices and multi-organization sign-ups at 50K requests per minute.",
-            technologies: ["Java", "SpringBoot", "JWT", "Security"],
-            type: "company",
-            github: "#"
+            title: "Flink Job Registry Service",
+            description: "Designed a Flink job registry service for version control and lifecycle management, reducing deployment time by 25% and improving job traceability by 40% through Decodable and prefect integration.",
+            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"],
+            company: "Pixis",
+            type: "company"
+        },
+        {
+            title: "Real-time Kafka → Iceberg Pipeline",
+            description: "Architected a real-time Kafka stream processing pipeline with Apache Iceberg, handling 1M+ events/sec at sub-second latency, leveraging fault-tolerant designs and transformation logic to boost throughput by 25%.",
+            technologies: ["GoLang", "Kafka", "Apache Flink", "Apache Iceberg", "Microservices"],
+            company: "Pixis",
+            type: "company"
+        },
+
+        // Threedots (3)
+        {
+            title: "Online Gaming Platform & Live Leaderboard",
+            description: "Led the development of an online gaming service in Java offering League, Prediction, Trading, and Quiz Match formats. Introduced a live leaderboard that boosted DAU/MAU ratio from 5% to 50%. Transitioned the service to Golang, achieving a 2x reduction in Heap storage/CPU usage, a 2x throughput improvement, and a 3x latency decrease.",
+            technologies: ["GoLang", "Java", "Kafka", "PostgreSQL", "Microservices"],
+            company: "Threedots",
+            type: "company"
+        },
+        {
+            title: "Virtual Currency Wallet",
+            description: "Managed and enhanced a virtual currency wallet for seamless gaming transactions, enabling users to add currency, play games, and convert virtual currency to real money, processing 20K+ transactions daily.",
+            technologies: ["GoLang", "Java", "Kafka", "PostgreSQL", "Microservices"],
+            company: "Threedots",
+            type: "company"
+        },
+        {
+            title: "Flink PostgreSQL CDC → Kafka",
+            description: "Engineered a Flink job to migrate PostgreSQL CDC data to Kafka, applying transformation logic to standardize and enrich data streams, improving downstream data accuracy by 30%.",
+            technologies: ["GoLang", "Java", "Kafka", "PostgreSQL", "Microservices"],
+            company: "Threedots",
+            type: "company"
+        },
+
+        // Ola Electric — Software Engineer (4)
+        {
+            title: "Auth & SSO Platform",
+            description: "Created a scalable User Auth and SSO solution using JWT authentication, supporting concurrent logins across devices and multi-organization sign-ups. Achieved robust authentication at 50K rpm with reinforced validation mechanisms, reducing unauthorized access attempts by 25%.",
+            technologies: ["Java", "SpringBoot", "Kafka", "Apache Flink", "JWT"],
+            company: "Ola Electric",
+            type: "company"
+        },
+        {
+            title: "Multi-organization User Platform",
+            description: "Developed a multi-organization user service platform that supports concurrent multi-tenancy and owner-employee features, reducing onboarding time by 30% while efficiently handling 80K rpm.",
+            technologies: ["Java", "SpringBoot", "Kafka", "Apache Flink", "JWT"],
+            company: "Ola Electric",
+            type: "company"
+        },
+        {
+            title: "Multi-tenant Wallet Platform",
+            description: "Designed a secure multi-tenant wallet platform with owner-employee features, processing 50K rpm. Optimized transactional security and reduced adjustment request turnaround by 20%.",
+            technologies: ["Java", "SpringBoot", "Kafka", "Apache Flink", "JWT"],
+            company: "Ola Electric",
+            type: "company"
+        },
+        {
+            title: "Flink Kafka Ingestion & Proto Transformation",
+            description: "Implemented a Flink job integrating Kafka, transforming data from proto to JSON and Java code for downstream services, improving processing speed by 25% and enabling real-time analytics.",
+            technologies: ["Java", "SpringBoot", "Kafka", "Apache Flink", "JWT"],
+            company: "Ola Electric",
+            type: "company"
+        },
+
+        // Ola Electric — Intern (3)
+        {
+            title: "Multi-tenant User Management & Tags",
+            description: "Contributed to multi-tenant user management and tags module for the tenant.",
+            technologies: ["Java", "Kafka", "Payment Integration"],
+            company: "Ola Electric(Intern)",
+            type: "company"
+        },
+        {
+            title: "Flink Kafka Ingestion for Wallet Onboarding",
+            description: "Made a contribution to a flink job to ingest events from Kafka and onboard user wallets to the wallet service asynchronously.",
+            technologies: ["Java", "Kafka", "Payment Integration"],
+            company: "Ola Electric(Intern)",
+            type: "company"
+        },
+        {
+            title: "Payment Service Integrations",
+            description: "Had a hand in payment service for various payment integrations with different payment platforms.",
+            technologies: ["Java", "Kafka", "Payment Integration"],
+            company: "Ola Electric(Intern)",
+            type: "company"
         }
     ],
 
@@ -258,8 +372,8 @@ const portfolioData = {
     // Education
     education: {
         degree: "Bachelor of Technology and Master of Technology in Information Technology (Dual Degree)",
-        institution: "Indian Institute of Information Technology Allahabad",
-        period: "Aug 2015 - July 2020",
+        institution: "Indian institute of information Technology Allahabad",
+        period: "Aug 2015 – July 2020",
         location: "Allahabad"
     },
 

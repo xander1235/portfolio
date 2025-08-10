@@ -60,16 +60,16 @@ function populateHeader() {
     }
 }
 
+// (Removed) Company meta aggregation previously used for achievements on project cards
+
 // Enhanced project data with categories
 function getEnhancedProjects() {
-    // Normalize projects: attach id, image, and ensure a type (github/company/freelance)
     const enhancedProjects = portfolioData.projects.map((project, index) => {
         const type = project.type || 'github';
         return {
             ...project,
             id: `project-${index}`,
-            type,
-            image: `project-${index + 1}.jpg` // Placeholder image
+            type
         };
     });
 
@@ -87,6 +87,7 @@ function populateProjectsShowcase() {
         const projectItem = document.createElement('div');
         projectItem.className = 'project-item show';
         projectItem.setAttribute('data-type', project.type);
+        projectItem.setAttribute('data-company', (project.company || '').toLowerCase());
         projectItem.setAttribute('data-aos', 'fade-up');
         projectItem.setAttribute('data-aos-delay', index * 100);
         
@@ -94,55 +95,13 @@ function populateProjectsShowcase() {
         const techTags = project.technologies.map(tech => 
             `<span class="tech-tag">${tech}</span>`
         ).join('');
-        
-        // Create project links based on project type
-        const overlayLinks = [];
-        const isValid = (url) => !!url && url !== '#';
-        if (project.type === 'github') {
-            if (isValid(project.github)) {
-                overlayLinks.push(`
-                    <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="View Code">
-                        <i class="fab fa-github"></i>
-                    </a>
-                `);
-            }
-            if (isValid(project.demo)) {
-                overlayLinks.push(`
-                    <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="Live Demo">
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                `);
-            }
-        } else if (project.type === 'company' || project.type === 'freelance') {
-            if (isValid(project.reference)) {
-                overlayLinks.push(`
-                    <a href="${project.reference}" target="_blank" rel="noopener noreferrer" class="overlay-link" title="Reference / Case Study">
-                        <i class="fas fa-link"></i>
-                    </a>
-                `);
-            }
-        }
-
-        const overlayHTML = overlayLinks.length
-            ? `<div class="project-overlay">${overlayLinks.join('')}</div>`
-            : '';
-
-        // Project type badge
-        const typeLabel = project.type === 'company' ? 'Company Project'
-                        : project.type === 'freelance' ? 'Freelance Project'
-                        : 'GitHub Project';
-        const typeClass = project.type === 'company' ? 'is-company'
-                        : project.type === 'freelance' ? 'is-freelance'
-                        : 'is-github';
-        const typeBadge = `<span class="project-type ${typeClass}">${typeLabel}</span>`;
-        
+        // Company badge (reuse project-type styles)
+        const companyLabel = project.company || 'Company';
+        const companyBadge = `<span class="project-type is-company">${companyLabel}</span>`;
         projectItem.innerHTML = `
-            <div class="project-image">
-                ${overlayHTML}
-            </div>
             <div class="project-content">
                 <h3>${project.title}</h3>
-                ${typeBadge}
+                ${companyBadge}
                 <p class="project-description">${project.description}</p>
                 <div class="project-tech">
                     ${techTags}
@@ -156,36 +115,69 @@ function populateProjectsShowcase() {
 
 // Initialize Filter Functionality
 function initializeFilters() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectItems = document.querySelectorAll('.project-item');
-    
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update active button
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // Filter projects
-            const filter = btn.getAttribute('data-filter');
-            
-            projectItems.forEach(item => {
-                const type = item.getAttribute('data-type');
-                
-                if (filter === 'all' || type === filter) {
-                    item.classList.remove('hide');
-                    item.classList.add('show');
-                } else {
-                    item.classList.remove('show');
-                    item.classList.add('hide');
-                }
-            });
-            
-            // Re-trigger AOS animations for visible items
-            setTimeout(() => {
-                AOS.refresh();
-            }, 300);
-        });
+    const filtersContainer = document.querySelector('.project-filters');
+    if (!filtersContainer) return;
+
+    // Build dynamic filters from unique companies
+    const projects = getEnhancedProjects();
+    const companies = Array.from(new Set(
+        projects
+            .map(p => (p.company || '').trim())
+            .filter(Boolean)
+    ));
+
+    // Clear existing static buttons
+    filtersContainer.innerHTML = '';
+
+    // Helper to create a button
+    const createBtn = (label, value, isActive = false) => {
+        const btn = document.createElement('button');
+        btn.className = `filter-btn${isActive ? ' active' : ''}`;
+        btn.setAttribute('data-filter', value);
+        btn.textContent = label;
+        return btn;
+    };
+
+    // Add "All" button
+    filtersContainer.appendChild(createBtn('All', 'all', true));
+
+    // Add a button per company
+    companies.forEach(company => {
+        const slug = company.toLowerCase();
+        filtersContainer.appendChild(createBtn(company, slug));
     });
+
+    // Attach filtering behavior
+    const attachHandlers = () => {
+        const buttons = filtersContainer.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Active state
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                const items = document.querySelectorAll('.project-item');
+
+                items.forEach(item => {
+                    const company = item.getAttribute('data-company');
+                    if (filter === 'all' || company === filter) {
+                        item.classList.remove('hide');
+                        item.classList.add('show');
+                    } else {
+                        item.classList.remove('show');
+                        item.classList.add('hide');
+                    }
+                });
+
+                setTimeout(() => {
+                    if (typeof AOS !== 'undefined') AOS.refresh();
+                }, 300);
+            });
+        });
+    };
+
+    attachHandlers();
 }
 
 // Populate Footer

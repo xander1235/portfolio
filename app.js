@@ -18,6 +18,7 @@ function initializePortfolio() {
     populateHero();
     populateAbout();
     populateTimeline();
+    populateAchievements();
     populateSkills();
     populateFooter();
     
@@ -225,6 +226,47 @@ function populateAbout() {
     }
 }
 
+// Populate Achievements Section (standalone, after My Journey)
+function populateAchievements() {
+    const container = document.querySelector('.achievements-content');
+    if (!container) return;
+
+    const achievements = Array.isArray(portfolioData.achievements) ? portfolioData.achievements : [];
+    if (!achievements.length) {
+        container.innerHTML = '<p class="no-achievements">No achievements to display yet.</p>';
+        return;
+    }
+
+    const list = document.createElement('ul');
+    list.className = 'achievements-list';
+
+    achievements.forEach(item => {
+        const li = document.createElement('li');
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-trophy';
+        icon.setAttribute('aria-hidden', 'true');
+
+        const textWrap = document.createElement('div');
+        const strong = document.createElement('strong');
+        strong.textContent = item.title || '';
+        textWrap.appendChild(strong);
+        if (item.description) {
+            const sep = document.createTextNode(' — ');
+            textWrap.appendChild(sep);
+            const desc = document.createElement('span');
+            desc.textContent = item.description;
+            textWrap.appendChild(desc);
+        }
+
+        li.appendChild(icon);
+        li.appendChild(textWrap);
+        list.appendChild(li);
+    });
+
+    container.innerHTML = '';
+    container.appendChild(list);
+}
+
 // Populate Timeline
 function populateTimeline() {
     // const timelineContainer = document.querySelector('.timeline-container');
@@ -290,6 +332,7 @@ window.portfolioApp = {
     populateHero,
     populateAbout,
     populateTimeline,
+    populateAchievements,
     populateSkills,
     populateFooter
 };

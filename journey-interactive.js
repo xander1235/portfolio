@@ -62,6 +62,9 @@ class InteractiveJourney {
             icon: ['🚀', '💼', '🏗️', '🌟'][index % 4],
             description: item.description,
             technologies: item.technologies || [],
+            companySummary: item.companySummary || item.description || '',
+            achievements: item.achievements || [],
+            learnings: item.learnings || [],
             color: ['#3b82f6', '#6366f1', '#8b5cf6', '#a855f7'][index % 4]
         }));
     }
@@ -387,7 +390,35 @@ class InteractiveJourney {
         this.infoCard.style.transform = 'translateY(20px)';
         
         setTimeout(() => {
-            // On mobile, show more compact info directly in the card
+            const summary = data.companySummary || data.description || '';
+            const achievements = Array.isArray(data.achievements) ? data.achievements : [];
+            const learnings = Array.isArray(data.learnings) ? data.learnings : [];
+            const maxA = isMobile ? Math.min(3, achievements.length) : achievements.length;
+            const maxL = isMobile ? Math.min(3, learnings.length) : learnings.length;
+
+            const achHTML = maxA > 0
+                ? `<div class="info-section">
+                        <h4>Key Achievements</h4>
+                        <ul class="info-list">
+                            ${achievements.slice(0, maxA).map(item => `
+                                <li><i class=\"fas fa-trophy\" style=\"color: ${data.color}\"></i> ${item}</li>
+                            `).join('')}
+                        </ul>
+                   </div>`
+                : '';
+
+            const learnHTML = maxL > 0
+                ? `<div class="info-section">
+                        <h4>What I Learned</h4>
+                        <ul class="info-list">
+                            ${learnings.slice(0, maxL).map(item => `
+                                <li><i class=\"fas fa-lightbulb\" style=\"color: ${data.color}\"></i> ${item}</li>
+                            `).join('')}
+                        </ul>
+                   </div>`
+                : '';
+
+            // On mobile, show compact info directly in the card
             if (isMobile) {
                 this.infoCard.innerHTML = `
                     <div class="info-header" style="border-color: ${data.color}">
@@ -398,15 +429,9 @@ class InteractiveJourney {
                         </div>
                     </div>
                     <div class="info-body">
-                        <p class="info-description">${data.description}</p>
-                        <div class="info-technologies">
-                            ${data.technologies.slice(0, 4).map(tech => 
-                                `<span class="tech-chip" style="background: ${data.color}20; color: ${data.color}">${tech}</span>`
-                            ).join('')}
-                        </div>
-                        ${data.technologies.length > 4 ? `
-                            <div class="info-more-tech">+${data.technologies.length - 4} more technologies</div>
-                        ` : ''}
+                        <p class="info-description">${summary}</p>
+                        ${achHTML}
+                        ${learnHTML}
                     </div>
                 `;
             } else {
@@ -420,12 +445,9 @@ class InteractiveJourney {
                         </div>
                     </div>
                     <div class="info-body">
-                        <p class="info-description">${data.description}</p>
-                        <div class="info-technologies">
-                            ${data.technologies.map(tech => 
-                                `<span class="tech-chip" style="background: ${data.color}20; color: ${data.color}">${tech}</span>`
-                            ).join('')}
-                        </div>
+                        <p class="info-description">${summary}</p>
+                        ${achHTML}
+                        ${learnHTML}
                     </div>
                     <div class="info-footer">
                         <button class="explore-btn" onclick="openJourneyModal()" style="background: ${data.color}">
@@ -533,22 +555,33 @@ window.openJourneyModal = function() {
         </div>
     `;
     
+    const summary = data.companySummary || data.description || '';
+    const achievements = Array.isArray(data.achievements) ? data.achievements : [];
+    const learnings = Array.isArray(data.learnings) ? data.learnings : [];
+
     modalBody.innerHTML = `
         <div class="modal-section">
-            <h4>About This Role</h4>
-            <p>${data.description}</p>
+            <h4>About the Company / Role</h4>
+            <p>${summary}</p>
         </div>
+        ${achievements.length ? `
         <div class="modal-section">
-            <h4>Technologies & Skills</h4>
-            <div class="modal-tech-grid">
-                ${data.technologies.map(tech => 
-                    `<div class="modal-tech-item" style="border-color: ${data.color}">
-                        <i class="fas fa-check-circle" style="color: ${data.color}"></i>
-                        ${tech}
-                    </div>`
-                ).join('')}
-            </div>
-        </div>
+            <h4>Key Achievements</h4>
+            <ul class="modal-list">
+                ${achievements.map(item => `
+                    <li><i class=\"fas fa-trophy\" style=\"color: ${data.color}\"></i> ${item}</li>
+                `).join('')}
+            </ul>
+        </div>` : ''}
+        ${learnings.length ? `
+        <div class="modal-section">
+            <h4>What I Learned</h4>
+            <ul class="modal-list">
+                ${learnings.map(item => `
+                    <li><i class=\"fas fa-lightbulb\" style=\"color: ${data.color}\"></i> ${item}</li>
+                `).join('')}
+            </ul>
+        </div>` : ''}
     `;
     
     modal.classList.add('active');
