@@ -4,7 +4,7 @@ class InteractiveJourney {
     constructor() {
         this.currentIndex = 0;
         this.journeyData = [];
-        this.isPlaying = true;
+        this.isPlaying = false;
         this.autoPlayInterval = null;
         this.autoPlayDelay = 4000; // 4 seconds per milestone
         
@@ -24,15 +24,7 @@ class InteractiveJourney {
         this.setupEventListeners();
         this.updateVisualization();
         
-        // Start autoplay (only on desktop by default)
-        const isMobile = window.innerWidth <= 768;
-        if (!isMobile) {
-            this.startAutoPlay();
-        } else {
-            // On mobile, start paused
-            this.isPlaying = false;
-            this.updatePlayPauseButton();
-        }
+        // Autoplay disabled; timeline advances only via user interaction
         
         // Make journey visible with fade-in
         setTimeout(() => {
@@ -122,9 +114,6 @@ class InteractiveJourney {
             <button class="control-btn" id="prevBtn" title="Previous">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="control-btn" id="playPauseBtn" title="Play/Pause">
-                <i class="fas fa-pause"></i>
-            </button>
             <button class="control-btn" id="nextBtn" title="Next">
                 <i class="fas fa-chevron-right"></i>
             </button>
@@ -150,27 +139,21 @@ class InteractiveJourney {
         // Control buttons
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const playPauseBtn = document.getElementById('playPauseBtn');
+        // Autoplay controls removed
         
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
-                this.stopAutoPlay();
                 this.previousMilestone();
             });
         }
         
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
-                this.stopAutoPlay();
                 this.nextMilestone();
             });
         }
         
-        if (playPauseBtn) {
-            playPauseBtn.addEventListener('click', () => {
-                this.toggleAutoPlay();
-            });
-        }
+        // Play/Pause button removed
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -188,12 +171,6 @@ class InteractiveJourney {
                     if (document.activeElement === document.body) {
                         e.preventDefault();
                         this.nextMilestone();
-                    }
-                    break;
-                case ' ':
-                    if (document.activeElement === document.body) {
-                        e.preventDefault();
-                        this.toggleAutoPlay();
                     }
                     break;
             }
@@ -215,10 +192,7 @@ class InteractiveJourney {
                     this.scrollNodeIntoView(this.timelineNodes[this.currentIndex]);
                 }
 
-                // Adjust autoplay based on screen size
-                if (isMobileViewport && this.isPlaying) {
-                    this.stopAutoPlay();
-                }
+                // Autoplay disabled; no adjustments necessary
             }, 250);
         });
         
@@ -252,18 +226,7 @@ class InteractiveJourney {
             }
         }, { passive: true });
         
-        // Pause on hover
-        this.journeyWrapper.addEventListener('mouseenter', () => {
-            if (this.isPlaying) {
-                this.pauseAutoPlay(true); // Temporary pause
-            }
-        });
-        
-        this.journeyWrapper.addEventListener('mouseleave', () => {
-            if (this.isPlaying && this.autoPlayInterval === null) {
-                this.startAutoPlay(); // Resume if it was playing
-            }
-        });
+        // Autoplay disabled; no hover pause/resume
     }
     
     goToMilestone(index) {
@@ -274,11 +237,7 @@ class InteractiveJourney {
         this.currentIndex = index;
         this.updateVisualization();
         
-        // Reset autoplay timer if playing
-        if (this.isPlaying) {
-            this.stopAutoPlay();
-            this.startAutoPlay();
-        }
+        // Autoplay disabled; no timer reset
     }
     
     previousMilestone() {
@@ -476,56 +435,7 @@ class InteractiveJourney {
         }
     }
     
-    startAutoPlay() {
-        if (this.autoPlayInterval) return;
-        
-        this.isPlaying = true;
-        this.updatePlayPauseButton();
-        
-        this.autoPlayInterval = setInterval(() => {
-            this.nextMilestone();
-        }, this.autoPlayDelay);
-    }
     
-    stopAutoPlay() {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-            this.autoPlayInterval = null;
-        }
-        
-        this.isPlaying = false;
-        this.updatePlayPauseButton();
-    }
-    
-    pauseAutoPlay(temporary = false) {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-            this.autoPlayInterval = null;
-        }
-        
-        if (!temporary) {
-            this.isPlaying = false;
-            this.updatePlayPauseButton();
-        }
-    }
-    
-    toggleAutoPlay() {
-        if (this.isPlaying) {
-            this.stopAutoPlay();
-        } else {
-            this.startAutoPlay();
-        }
-    }
-    
-    updatePlayPauseButton() {
-        const btn = document.getElementById('playPauseBtn');
-        if (btn) {
-            const icon = btn.querySelector('i');
-            if (icon) {
-                icon.className = this.isPlaying ? 'fas fa-pause' : 'fas fa-play';
-            }
-        }
-    }
     
     isJourneyVisible() {
         const rect = this.journeyWrapper.getBoundingClientRect();
