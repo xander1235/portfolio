@@ -218,6 +218,40 @@ function populateTechOrbit() {
     });
 }
 
+// Populate Footer (shared across all pages)
+function populateFooter() {
+    // Social icons
+    const socialLinks = document.querySelector('footer .social-links');
+    if (socialLinks && portfolioData && Array.isArray(portfolioData.social)) {
+        socialLinks.innerHTML = '';
+        portfolioData.social.forEach(social => {
+            const link = document.createElement('a');
+            link.href = social.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.setAttribute('aria-label', social.label || 'social link');
+
+            const icon = document.createElement('i');
+            icon.className = social.icon;
+            link.appendChild(icon);
+
+            socialLinks.appendChild(link);
+        });
+    }
+
+    // Footer name
+    const footerName = document.getElementById('footer-name');
+    if (footerName && portfolioData && portfolioData.personal) {
+        footerName.textContent = portfolioData.personal.name || '';
+    }
+
+    // Current year
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
+}
+
 // Populate About Section
 function populateAbout() {
     const aboutContent = document.querySelector('.about-content');

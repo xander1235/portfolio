@@ -8,7 +8,7 @@ const portfolioData = {
         tagline: "Building Scalable Systems & Microservices",
         description: "Experienced Software Engineer with 5+ years of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.",
         profileImage: "images/my_pic.jpg", // Add your profile image path here
-        resume: "resume.pdf", // Add your resume path here
+        resume: "pdfs/Rathod_Veerender.pdf", // Add your resume path here
         email: "rathodveerender25@gmail.com",
         location: "Bangalore"
     },
