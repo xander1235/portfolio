@@ -202,6 +202,14 @@
     font-weight: 500;
 }
 
+/* Company name inside timeline node */
+.node-company {
+    font-size: 0.813rem;
+    color: var(--light-text);
+    opacity: 0.9;
+    margin-top: 0.125rem;
+}
+
 /* Info Card */
 .journey-info-card {
     background: var(--bg-color);
@@ -648,47 +656,51 @@ body.dark .modal-tech-item {
     /* Journey Wrapper */
     .journey-wrapper {
         padding: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 80px);
     }
 
     /* Progress Bar */
     .journey-progress {
-        margin-bottom: 2rem;
+        margin-bottom: 0.75rem;
     }
 
     .journey-progress-track {
         height: 4px;
     }
 
-    /* Timeline - Grid layout on mobile */
+    /* Timeline - Compact horizontal row on mobile */
     .journey-timeline {
-        margin-bottom: 2rem;
-        padding: 1rem 0;
+        margin-bottom: 1rem;
+        padding: 0.5rem 0;
     }
 
     .journey-timeline-track {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        overflow: visible;
-        padding: 1rem;
-        max-height: none;
+        display: flex;
+        gap: 0.75rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0.5rem 0.75rem;
+        height: 160px;
     }
 
-    /* Timeline Node - Card style on mobile */
+    /* Timeline Node - Chip/card style on mobile */
     .timeline-node {
-        width: 100%;
+        width: 140px;
+        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         opacity: 0.7;
         position: relative;
-        padding: 1rem;
+        padding: 0.5rem;
         background: rgba(59, 130, 246, 0.05);
         border-radius: 12px;
         border: 1px solid transparent;
         transition: all 0.3s ease;
-        min-height: 120px;
+        min-height: 100px;
     }
 
     .timeline-node.active {
@@ -711,9 +723,9 @@ body.dark .modal-tech-item {
 
     /* Node Circle - Centered for grid layout */
     .node-circle {
-        width: 50px;
-        height: 50px;
-        margin: 0 auto 0.75rem;
+        width: 46px;
+        height: 46px;
+        margin: 0 auto 0.5rem;
         flex-shrink: 0;
     }
 
@@ -731,6 +743,7 @@ body.dark .modal-tech-item {
         flex: 1;
         text-align: center;
         width: 100%;
+        min-width: 0; /* allow text to shrink and clamp properly */
     }
 
     .node-year {
@@ -745,6 +758,30 @@ body.dark .modal-tech-item {
         font-weight: 500;
         line-height: 1.2;
         word-break: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        max-width: 100%;
+    }
+
+    /* Company name inside node - mobile specific clamp */
+    .node-company {
+        font-size: 0.75rem;
+        margin-top: 0.125rem;
+        color: var(--light-text);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-break: break-word;
+        max-width: 100%;
     }
 
     /* Hide pulse animation on mobile */
@@ -752,12 +789,14 @@ body.dark .modal-tech-item {
         display: none;
     }
 
-    /* Info Card - Compact mobile design */
+    /* Info Card - Compact mobile design, fills remaining height */
     .journey-info-card {
         padding: 1.25rem;
-        margin-bottom: 6rem; /* More space for fixed controls */
         border-radius: 12px;
-        max-height: none; /* Allow full content */
+        flex: 1 1 auto;
+        min-height: 0; /* Allow flex container to shrink */
+        overflow-y: auto; /* Scroll inside the card if needed */
+        margin-bottom: 5rem; /* Space for fixed controls */
     }
 
     .info-header {
@@ -780,11 +819,20 @@ body.dark .modal-tech-item {
         font-size: 1rem;
         line-height: 1.2;
         margin-bottom: 0.125rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .info-company {
         font-size: 0.75rem;
         opacity: 0.8;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .info-body {
@@ -796,7 +844,6 @@ body.dark .modal-tech-item {
         line-height: 1.5;
         margin-bottom: 0.75rem;
     }
-
     .info-technologies {
         gap: 0.25rem;
     }
@@ -832,6 +879,18 @@ body.dark .modal-tech-item {
         z-index: 100;
         gap: 0.75rem;
         border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    /* Prevent header text/icon overlap */
+    .info-header .info-meta {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .info-header .info-title,
+    .info-header .info-company {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .control-btn {

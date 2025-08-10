@@ -81,6 +81,7 @@ class InteractiveJourney {
                 <div class="node-content">
                     <h4 class="node-year">${data.year}</h4>
                     <p class="node-title">${data.title}</p>
+                    <p class="node-company">${data.company}</p>
                 </div>
                 <div class="node-pulse"></div>
             `;
@@ -295,48 +296,19 @@ class InteractiveJourney {
     }
     
     scrollNodeIntoView(node) {
-        // Check if mobile view
-        const isMobile = window.innerWidth <= 1024;
+        // Horizontally center the node within the timeline container
+        const container = this.timelineContainer;
+        if (!container || !node) return;
         
-        if (isMobile) {
-            // For mobile/tablet grid layout, ensure the node is visible
-            const nodeRect = node.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const headerHeight = 80; // Approximate header height
-            const controlsHeight = 80; // Approximate controls height
-            
-            // Check if node is fully visible
-            const nodeTop = nodeRect.top;
-            const nodeBottom = nodeRect.bottom;
-            const visibleTop = headerHeight;
-            const visibleBottom = windowHeight - controlsHeight;
-            
-            if (nodeTop < visibleTop || nodeBottom > visibleBottom) {
-                // Scroll to center the node in the visible area
-                const nodeCenter = nodeTop + nodeRect.height / 2;
-                const visibleCenter = (visibleTop + visibleBottom) / 2;
-                const scrollOffset = nodeCenter - visibleCenter;
-                
-                window.scrollBy({
-                    top: scrollOffset,
-                    behavior: 'smooth'
-                });
-            }
-        } else {
-            // For desktop, use horizontal scrolling
-            const container = this.timelineContainer;
-            const nodeRect = node.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            
-            const nodeCenter = nodeRect.left + nodeRect.width / 2;
-            const containerCenter = containerRect.left + containerRect.width / 2;
-            const scrollOffset = nodeCenter - containerCenter;
-            
-            container.scrollBy({
-                left: scrollOffset,
-                behavior: 'smooth'
-            });
-        }
+        const nodeLeft = node.offsetLeft;
+        const nodeWidth = node.offsetWidth;
+        const containerWidth = container.clientWidth;
+        const targetScroll = Math.max(0, nodeLeft - (containerWidth - nodeWidth) / 2);
+        
+        container.scrollTo({
+            left: targetScroll,
+            behavior: 'smooth'
+        });
     }
     
     updateInfoCard(data) {
@@ -434,7 +406,6 @@ class InteractiveJourney {
             nextBtn.disabled = false; // Always enabled with loop
         }
     }
-    
     
     
     isJourneyVisible() {
