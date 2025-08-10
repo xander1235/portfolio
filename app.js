@@ -165,7 +165,8 @@ function populateHero() {
             
             if (cta.download && portfolioData.personal.resume) {
                 link.href = portfolioData.personal.resume;
-                link.download = true;
+                // Set empty download attribute so browser uses the URL's filename
+                link.setAttribute('download', '');
             }
             
             heroCTA.appendChild(link);
