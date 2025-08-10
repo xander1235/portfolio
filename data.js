@@ -1,12 +1,27 @@
 // Portfolio Data Configuration
 // data.js - Portfolio Data Configuration
+// Dynamic experience text (from July 2020 to current month/year)
+const EXPERIENCE_START = { year: 2020, monthIndex: 6 }; // July is 6 (0-based)
+function computeExperienceYearsDecimal(start) {
+    const now = new Date();
+    let months = (now.getFullYear() - start.year) * 12 + (now.getMonth() - start.monthIndex);
+    if (months < 0) months = 0;
+    const decimalYears = months / 12;
+    const rounded = Math.round(decimalYears * 10) / 10; // one decimal place
+    if (Number.isInteger(rounded)) {
+        return `${rounded} years`;
+    }
+    return `${rounded.toFixed(1)} years`;
+}
+const experienceYearsText = computeExperienceYearsDecimal(EXPERIENCE_START);
+
 const portfolioData = {
     // Personal Information
     personal: {
         name: "Veerender Rathod",
         title: "Senior Software Engineer",
         tagline: "Building Scalable Systems & Microservices",
-        description: "Experienced Software Engineer with 5+ years of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.",
+        description: `Experienced Software Engineer with ${experienceYearsText} of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.`,
         profileImage: "images/my_pic.jpg", // Add your profile image path here
         resume: "pdfs/Rathod_Veerender.pdf", // Add your resume path here
         email: "rathodveerender25@gmail.com",
@@ -121,7 +136,7 @@ const portfolioData = {
     about: {
         title: "About Me",
         content: `
-            <p>Experienced Software Engineer with 5+ years of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.</p>
+            <p>Experienced Software Engineer with ${experienceYearsText} of expertise in scalable systems, microservices, and distributed architectures. Skilled in designing and optimizing high-throughput systems using Java, Golang, and Apache Flink. Demonstrated success in reducing system latencies, improving data reliability, and delivering end-to-end solutions for data processing and API integrations.</p>
         `
     },
 
